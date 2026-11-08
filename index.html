@@ -93,12 +93,11 @@
   .sub { font-size:1.25rem; margin-bottom:14px; }
   .stats { display:flex; flex-wrap:wrap; gap:8px 28px; margin:14px 0 18px; color:var(--muted); font-size:.95rem; }
   .stats b { color:var(--text); font-size:1.15rem; }
-  /* Snake */
-  #sn { display:block; width:100%; max-width:360px; aspect-ratio:1; margin:0 auto 14px; border:1px solid var(--line); border-radius:14px; touch-action:none; background:var(--bg2); }
-  .dpad { display:none; grid-template-columns:repeat(3,58px); gap:8px; justify-content:center; margin:0 auto 16px; }
-  .dpad button { height:52px; border:1px solid var(--line); border-radius:14px; background:var(--bg2); color:var(--text); font-size:1.1rem; cursor:pointer; }
-  .dpad button:active { background:var(--line); }
-  @media (hover:none) { .dpad { display:grid; } }
+  /* Cyber Run */
+  #cr { display:block; width:100%; max-width:700px; aspect-ratio:3/1; margin:0 auto 14px; border:1px solid var(--line); border-radius:14px; touch-action:none; background:var(--bg2); cursor:pointer; }
+  #cr-lv button { font-size:.9rem; padding:10px 4px; }
+  .btn.jump { display:none; width:100%; max-width:700px; margin:0 auto 14px; text-align:center; }
+  @media (hover:none) { .btn.jump { display:block; } }
   @media (prefers-reduced-motion:reduce) { #shh-btn { animation:none; } #shh-hint.show { animation:none; } }
   #shh-box { display:none; position:fixed; bottom:80px; right:20px; width:330px; max-width:calc(100vw - 40px); height:430px; max-height:calc(100vh - 110px); background:var(--card); border:1px solid var(--line); border-radius:20px; flex-direction:column; overflow:hidden; z-index:1000; box-shadow:0 12px 40px rgba(0,0,0,.25); }
   #shh-head { background:var(--bg2); padding:10px 10px 10px 14px; font-weight:700; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:10px; }
@@ -170,7 +169,7 @@
       <div class="grid">
         <div class="card"><h3>This Website</h3><p>My portfolio, built with HTML, CSS and JavaScript and hosted free on GitHub Pages.</p><span class="meta">HTML &middot; CSS &middot; JavaScript</span></div>
         <div class="card"><h3>Shhunya AI Chatbot</h3><p>An AI assistant on this site, powered by Google Gemini through a Cloudflare Worker.</p><span class="meta">JavaScript &middot; Cloudflare Workers &middot; Gemini</span></div>
-        <div class="card"><h3>Playground</h3><p>Two things to play with on this page: a Caesar cipher and a Snake game with levels and bonus food.</p><a class="meta" href="#lab" style="color:inherit">Try them below <span class="arrow" style="margin:0">&rarr;</span></a></div>
+        <div class="card"><h3>Playground</h3><p>Two things to play with on this page: a Caesar cipher and Cyber Run, an endless cybersecurity runner with levels and a protective shield.</p><a class="meta" href="#lab" style="color:inherit">Try them below <span class="arrow" style="margin:0">&rarr;</span></a></div>
         <div class="card"><h3>Next project</h3><p>Something new is in the works. Check back soon.</p><span class="meta">Coming soon</span></div>
       </div>
     </div>
@@ -193,20 +192,22 @@
         <p class="note">Only 25 shifts exist, so anyone can crack this in seconds. Never use it to protect real data.</p>
       </div>
 
-      <h3 class="sub" style="margin-top:56px">Snake</h3>
+      <h3 class="sub" style="margin-top:56px">Cyber Run</h3>
       <div class="lab">
+        <div class="seg" id="cr-lv" role="group" aria-label="Choose a level">
+          <button type="button" aria-pressed="true">Rookie</button><button type="button" aria-pressed="false">Analyst</button><button type="button" aria-pressed="false">Hacker</button><button type="button" aria-pressed="false">Elite</button>
+        </div>
+        <p class="note" id="cr-info" style="margin:8px 0 0">Slow start and wide gaps. A good place to learn the jumps.</p>
         <div class="stats" aria-live="off">
-          <span>Score <b id="sn-s">0</b></span>
-          <span>Best <b id="sn-b">0</b></span>
-          <span>Level <b id="sn-l">1</b></span>
+          <span>Score <b id="cr-s">0</b></span>
+          <span>Best <b id="cr-b">0</b></span>
+          <span>Level <b id="cr-l">Rookie</b></span>
+          <span>Shield <b id="cr-sh">Off</b></span>
         </div>
-        <canvas id="sn" width="360" height="360" role="img" aria-label="Snake game board"></canvas>
-        <div class="dpad" aria-label="Touch controls">
-          <span></span><button data-dx="0" data-dy="-1" aria-label="Up">&#9650;</button><span></span>
-          <button data-dx="-1" data-dy="0" aria-label="Left">&#9664;</button><button data-dx="0" data-dy="1" aria-label="Down">&#9660;</button><button data-dx="1" data-dy="0" aria-label="Right">&#9654;</button>
-        </div>
-        <div style="text-align:center"><button class="btn" id="sn-start" type="button">Play</button></div>
-        <p class="note" style="text-align:center">Arrow keys or WASD to move, Space to pause. Golden food is worth 5 points but vanishes fast. On a phone, swipe on the board or use the buttons. It speeds up every 6 points.</p>
+        <canvas id="cr" width="720" height="240" role="img" aria-label="Cyber Run game: jump over viruses and firewalls"></canvas>
+        <button class="btn jump" id="cr-jump" type="button">Jump</button>
+        <div style="text-align:center"><button class="btn" id="cr-start" type="button">Play</button></div>
+        <p class="note" style="text-align:center">Jump over viruses, firewalls and ransomware locks. Grab the cyan shield for 5 seconds of protection: anything you hit is destroyed for bonus points. Space, W or the up arrow to jump, P to pause. On a phone, tap the game or the Jump button. Pick a level, then run for as long as you can.</p>
       </div>
     </div>
   </section>
@@ -317,104 +318,240 @@
   $("c-shift").oninput = runCipher;
   runCipher();
 
-  // Snake game
-  var sn = $("sn"), cx = sn.getContext("2d"), N = 18, CS = sn.width / N;
-  var snake, dir, nextDir, food, bonus, score = 0, level = 1, best = 0, timer, running = false, paused = false, over = false;
-  try { best = parseInt(localStorage.getItem("snakeBest"), 10) || 0; } catch (e) {}
+  // Cyber Run: an endless cybersecurity runner
+  var cv = $("cr"), g = cv.getContext("2d"), W = 720, H = 240, GY = 190, PX = 80, PW = 28, PH = 34;
+  var dpr = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = W * dpr; cv.height = H * dpr; g.scale(dpr, dpr);
+  var SHIELD = 5, JUMP = 800, GRAV = 2600, MAXV = 700;
+  var LEVELS = [
+    { name: "Rookie", info: "Slow start and wide gaps. A good place to learn the jumps.", v0: 280, acc: 6, gap: [1.35, 0.9], shield: 12 },
+    { name: "Analyst", info: "Faster threats and tighter gaps.", v0: 340, acc: 8, gap: [1.2, 0.8], shield: 15 },
+    { name: "Hacker", info: "Quick and relentless. Shields are rarer.", v0: 400, acc: 10, gap: [1.05, 0.7], shield: 18 },
+    { name: "Elite", info: "Top speed from the start. Good luck.", v0: 460, acc: 12, gap: [0.95, 0.55], shield: 20 }
+  ];
+  var lv = 0, bests = [0, 0, 0, 0];
+  try { var sb = JSON.parse(localStorage.getItem("cyberRunBest")); if (sb && sb.length === 4) { bests = sb.map(function (n) { return +n || 0; }); } } catch (e) {}
+  try { var sl = parseInt(localStorage.getItem("cyberRunLevel"), 10); if (sl >= 0 && sl < 4) { lv = sl; } } catch (e) {}
+  var p, obs, items, parts, speed, score, shieldT, shieldIn, gapLeft, scroll, clock = 0;
+  var running = false, paused = false, over = false, newBest = false, raf = 0, last = 0, inView = true;
   function css(v) { return getComputedStyle(document.body).getPropertyValue(v).trim(); }
-  function same(a, b) { return a && b && a.x === b.x && a.y === b.y; }
-  function free() {
-    var p;
-    do { p = { x: Math.floor(Math.random() * N), y: Math.floor(Math.random() * N) }; }
-    while (snake.some(function (s) { return same(s, p); }) || same(food, p) || same(bonus, p));
-    return p;
+  function stats() {
+    $("cr-s").textContent = Math.floor(score);
+    $("cr-b").textContent = Math.max(bests[lv], Math.floor(score));
+    $("cr-l").textContent = LEVELS[lv].name;
+    $("cr-sh").textContent = shieldT > 0 ? shieldT.toFixed(1) + "s" : "Off";
   }
-  function stats() { $("sn-s").textContent = score; $("sn-l").textContent = level; $("sn-b").textContent = best; }
   function reset() {
-    snake = [{ x: 9, y: 9 }, { x: 8, y: 9 }, { x: 7, y: 9 }];
-    dir = { x: 1, y: 0 }; nextDir = dir; food = null; bonus = null;
-    food = free(); score = 0; level = 1; over = false; paused = false; stats();
+    var L = LEVELS[lv];
+    p = { y: GY, vy: 0 }; obs = []; items = []; parts = [];
+    speed = L.v0; score = 0; shieldT = 0; scroll = 0; over = false; paused = false; newBest = false;
+    gapLeft = 520; shieldIn = L.shield * 0.6;
+    stats();
   }
-  function speed() { return Math.max(60, 150 - (level - 1) * 14); }
+  function makeObs() {
+    var r = Math.random();
+    if (r < 0.38) { return { t: "virus", w: 32, h: 32 }; }
+    if (r < 0.66) { return { t: "wall", w: 24, h: 56 + Math.floor(Math.random() * 14) };}
+    if (r < 0.84) { return { t: "bots", w: 72, h: 32 }; }
+    return { t: "lock", w: 46, h: 46 };
+  }
+  function burst(x, y, c) {
+    for (var i = 0; i < 12; i++) {
+      var a = Math.random() * 6.28, s = 80 + Math.random() * 180;
+      parts.push({ x: x, y: y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 60, life: 0.5, c: c });
+    }
+  }
+  function update(dt) {
+    var L = LEVELS[lv];
+    clock += dt;
+    speed = Math.min(MAXV, speed + L.acc * dt);
+    scroll += speed * dt;
+    score += speed * dt * 0.02;
+    p.vy += GRAV * dt; p.y += p.vy * dt;
+    if (p.y >= GY) { p.y = GY; p.vy = 0; }
+    if (shieldT > 0) { shieldT = Math.max(0, shieldT - dt); }
+    gapLeft -= speed * dt; shieldIn -= dt;
+    if (gapLeft <= 0) {
+      var o = makeObs(); o.x = W + 20; obs.push(o);
+      if (shieldIn <= 0 && !items.length && shieldT <= 0) {
+        items.push({ x: o.x + o.w / 2, y: GY - 100 });
+        shieldIn = L.shield + Math.random() * 6;
+      }
+      gapLeft = speed * (L.gap[0] + Math.random() * L.gap[1]) + o.w;
+    }
+    var pr = { x: PX + 4, y: p.y - PH + 3, w: PW - 8, h: PH - 3 };
+    for (var i = obs.length - 1; i >= 0; i--) {
+      var b = obs[i];
+      b.x -= speed * dt;
+      if (b.x + b.w < -20) { obs.splice(i, 1); continue; }
+      if (pr.x < b.x + b.w - 4 && pr.x + pr.w > b.x + 4 && pr.y + pr.h > GY - b.h + 4) {
+        if (shieldT > 0) { burst(b.x + b.w / 2, GY - b.h / 2, "#22d3ee"); obs.splice(i, 1); score += 10; }
+        else { end(); return; }
+      }
+    }
+    for (var j = items.length - 1; j >= 0; j--) {
+      var it = items[j];
+      it.x -= speed * dt;
+      if (it.x < -30) { items.splice(j, 1); continue; }
+      var nx = Math.max(pr.x, Math.min(it.x, pr.x + pr.w)), ny = Math.max(pr.y, Math.min(it.y, pr.y + pr.h));
+      if ((nx - it.x) * (nx - it.x) + (ny - it.y) * (ny - it.y) < 18 * 18) {
+        shieldT = SHIELD; burst(it.x, it.y, "#22d3ee"); items.splice(j, 1);
+      }
+    }
+    for (var k = parts.length - 1; k >= 0; k--) {
+      var q = parts[k];
+      q.x += q.vx * dt; q.y += q.vy * dt; q.vy += 900 * dt; q.life -= dt;
+      if (q.life <= 0) { parts.splice(k, 1); }
+    }
+  }
+  function drawVirus(x, y, r, spin) {
+    g.save(); g.translate(x, y); g.rotate(spin);
+    g.strokeStyle = "#16a34a"; g.lineWidth = 3;
+    for (var a = 0; a < 8; a++) {
+      g.beginPath(); g.moveTo(Math.cos(a * 0.785) * r, Math.sin(a * 0.785) * r);
+      g.lineTo(Math.cos(a * 0.785) * (r + 6), Math.sin(a * 0.785) * (r + 6)); g.stroke();
+    }
+    g.fillStyle = "#22c55e"; g.beginPath(); g.arc(0, 0, r, 0, 7); g.fill();
+    g.restore();
+    g.fillStyle = "#052e16"; g.fillRect(x - 6, y - 4, 4, 5); g.fillRect(x + 2, y - 4, 4, 5);
+  }
+  function drawWall(o) {
+    var x = o.x, y = GY - o.h;
+    g.fillStyle = "#ef4444"; g.fillRect(x, y, o.w, o.h);
+    g.strokeStyle = "#b91c1c"; g.lineWidth = 1.5;
+    for (var r = 1; r * 12 < o.h; r++) { g.beginPath(); g.moveTo(x, y + r * 12); g.lineTo(x + o.w, y + r * 12); g.stroke(); }
+    for (var r2 = 0; r2 * 12 < o.h; r2++) {
+      var bx = x + (r2 % 2 ? o.w * 0.3 : o.w * 0.65);
+      g.beginPath(); g.moveTo(bx, y + r2 * 12); g.lineTo(bx, Math.min(y + r2 * 12 + 12, GY)); g.stroke();
+    }
+    g.fillStyle = "#f59e0b";
+    for (var f = 0; f < 3; f++) {
+      var fx = x + 2 + f * (o.w - 4) / 3, fl = 5 + ((Math.floor(clock * 10) + f) % 3) * 3;
+      g.beginPath(); g.moveTo(fx, y); g.lineTo(fx + (o.w - 4) / 6, y - fl); g.lineTo(fx + (o.w - 4) / 3, y); g.fill();
+    }
+  }
+  function drawLock(o) {
+    var x = o.x, y = GY - o.h;
+    g.fillStyle = "#f59e0b"; g.fillRect(x, y, o.w, o.h);
+    g.strokeStyle = "#b45309"; g.lineWidth = 3; g.strokeRect(x + 1.5, y + 1.5, o.w - 3, o.h - 3);
+    g.strokeStyle = "#451a03"; g.lineWidth = 4; g.beginPath(); g.arc(x + o.w / 2, y + 18, 8, 3.14, 0); g.stroke();
+    g.fillStyle = "#451a03"; g.fillRect(x + o.w / 2 - 11, y + 18, 22, 16);
+  }
+  function drawShieldIcon(x, y, s) {
+    g.beginPath(); g.moveTo(x, y - 12 * s); g.lineTo(x + 10 * s, y - 8 * s);
+    g.quadraticCurveTo(x + 10 * s, y + 6 * s, x, y + 13 * s);
+    g.quadraticCurveTo(x - 10 * s, y + 6 * s, x - 10 * s, y - 8 * s); g.closePath();
+  }
   function draw() {
-    if (!snake) { return; }
-    cx.fillStyle = css("--bg2"); cx.fillRect(0, 0, sn.width, sn.height);
-    cx.strokeStyle = css("--line"); cx.lineWidth = 0.5;
-    for (var i = 1; i < N; i++) {
-      cx.beginPath(); cx.moveTo(i * CS, 0); cx.lineTo(i * CS, sn.height); cx.stroke();
-      cx.beginPath(); cx.moveTo(0, i * CS); cx.lineTo(sn.width, i * CS); cx.stroke();
+    if (!p) { return; }
+    var bg = css("--bg2"), line = css("--line"), muted = css("--muted");
+    g.fillStyle = bg; g.fillRect(0, 0, W, H);
+    g.fillStyle = line;
+    for (var i = 0; i < 18; i++) {
+      var bx = (((i * 97 - scroll * 0.15) % (W + 40)) + (W + 40)) % (W + 40) - 20, by = 20 + (i * 53) % 110;
+      g.fillRect(bx, by, 14, 2); g.fillRect(bx + 22, by + 6, 5, 2);
     }
-    if (food) { cx.fillStyle = "#ef4444"; cx.beginPath(); cx.arc(food.x * CS + CS / 2, food.y * CS + CS / 2, CS / 2 - 3, 0, 7); cx.fill(); }
-    if (bonus) {
-      var left = Math.max(0, (bonus.t - Date.now()) / 5000), bx = bonus.x * CS + CS / 2, by = bonus.y * CS + CS / 2;
-      cx.fillStyle = "#f59e0b"; cx.beginPath(); cx.arc(bx, by, CS / 2 - 2, 0, 7); cx.fill();
-      cx.strokeStyle = "#f59e0b"; cx.lineWidth = 2; cx.beginPath(); cx.arc(bx, by, CS / 2 + 1, -1.57, -1.57 + 6.28 * left); cx.stroke();
+    g.strokeStyle = muted; g.lineWidth = 2; g.beginPath(); g.moveTo(0, GY + 0.5); g.lineTo(W, GY + 0.5); g.stroke();
+    g.fillStyle = line;
+    for (var k = 0; k < 14; k++) {
+      var gx = (((k * 60 - scroll) % (W + 60)) + (W + 60)) % (W + 60);
+      g.fillRect(gx, GY + 12 + (k % 3) * 9, 18, 3);
     }
-    snake.forEach(function (s, i) {
-      cx.fillStyle = i === 0 ? "#a5b4fc" : "#6366f1";
-      cx.fillRect(s.x * CS + 1, s.y * CS + 1, CS - 2, CS - 2);
+    items.forEach(function (it) {
+      var y = it.y + Math.sin(clock * 4) * 3;
+      g.fillStyle = "rgba(34,211,238,.18)"; g.beginPath(); g.arc(it.x, y, 20, 0, 7); g.fill();
+      drawShieldIcon(it.x, y, 1); g.fillStyle = "#22d3ee"; g.fill();
     });
+    obs.forEach(function (o) {
+      var spin = scroll / 40;
+      if (o.t === "virus") { drawVirus(o.x + 16, GY - 16, 10, spin); }
+      else if (o.t === "bots") { drawVirus(o.x + 16, GY - 16, 10, spin); drawVirus(o.x + 56, GY - 16, 10, -spin); }
+      else if (o.t === "wall") { drawWall(o); }
+      else { drawLock(o); }
+    });
+    parts.forEach(function (q) {
+      g.globalAlpha = Math.max(0, q.life * 2); g.fillStyle = q.c; g.fillRect(q.x, q.y, 4, 4);
+    });
+    g.globalAlpha = 1;
+    var px = PX, py = p.y - PH, air = p.y < GY, step = Math.floor(scroll / 22) % 2;
+    g.fillStyle = "#4f46e5";
+    if (air) { g.fillRect(px + 3, py + PH - 10, 8, 10); g.fillRect(px + PW - 11, py + PH - 10, 8, 10); }
+    else { g.fillRect(px + 3, py + PH - (step ? 10 : 6), 8, step ? 10 : 6); g.fillRect(px + PW - 11, py + PH - (step ? 6 : 10), 8, step ? 6 : 10); }
+    g.fillStyle = "#6366f1"; g.fillRect(px, py, PW, PH - 8);
+    g.fillStyle = "#a5b4fc"; g.fillRect(px + PW - 15, py + 7, 13, 8);
+    if (shieldT > 0) {
+      var a = shieldT < 1.2 ? (Math.floor(shieldT * 8) % 2 ? 0.25 : 0.8) : 0.8;
+      g.fillStyle = "rgba(34,211,238," + (a * 0.18) + ")"; g.strokeStyle = "rgba(34,211,238," + a + ")"; g.lineWidth = 3;
+      g.beginPath(); g.arc(px + PW / 2, py + PH / 2, 32, 0, 7); g.fill(); g.stroke();
+    }
     if (!running || paused) {
-      cx.fillStyle = "rgba(0,0,0,.6)"; cx.fillRect(0, 0, sn.width, sn.height);
-      cx.fillStyle = "#fff"; cx.textAlign = "center"; cx.font = "700 26px system-ui,sans-serif";
-      cx.fillText(over ? "Game over: " + score : (paused ? "Paused" : "Press Play"), sn.width / 2, sn.height / 2);
-      if (over && score > 0 && score >= best) { cx.font = "500 16px system-ui,sans-serif"; cx.fillText("New best score!", sn.width / 2, sn.height / 2 + 30); }
+      g.fillStyle = "rgba(0,0,0,.62)"; g.fillRect(0, 0, W, H);
+      g.fillStyle = "#fff"; g.textAlign = "center";
+      g.font = "700 30px system-ui,sans-serif";
+      g.fillText(over ? "System breached" : (paused ? "Paused" : "Press Play"), W / 2, H / 2 - 6);
+      g.font = "500 16px system-ui,sans-serif";
+      if (over) { g.fillText("Score " + Math.floor(score) + (newBest ? "  |  New best!" : ""), W / 2, H / 2 + 24); }
+      else if (paused) { g.fillText("Press P, Space or tap to continue", W / 2, H / 2 + 24); }
+      else { g.fillText("Level: " + LEVELS[lv].name + "  |  Jump with Space, W, Up arrow or a tap", W / 2, H / 2 + 24); }
     }
   }
   function end() {
-    running = false; over = true;
-    if (score > best) { best = score; try { localStorage.setItem("snakeBest", best); } catch (e) {} }
-    stats(); draw(); $("sn-start").textContent = "Play again";
+    running = false; over = true; cancelAnimationFrame(raf);
+    var s = Math.floor(score);
+    if (s > bests[lv]) {
+      newBest = s > 0; bests[lv] = s;
+      try { localStorage.setItem("cyberRunBest", JSON.stringify(bests)); } catch (e) {}
+    }
+    stats(); draw(); $("cr-start").textContent = "Play again";
   }
-  function loop() {
+  function frame(ts) {
     if (!running || paused) { return; }
-    dir = nextDir;
-    var h = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
-    if (h.x < 0 || h.y < 0 || h.x >= N || h.y >= N || snake.some(function (s) { return same(s, h); })) { end(); return; }
-    snake.unshift(h);
-    var ate = false;
-    if (same(h, food)) {
-      score++; ate = true; food = free();
-      if (!bonus && score % 4 === 0) { bonus = free(); bonus.t = Date.now() + 5000; }
-    } else if (same(h, bonus)) { score += 5; ate = true; bonus = null; }
-    if (!ate) { snake.pop(); }
-    if (bonus && Date.now() > bonus.t) { bonus = null; }
-    level = 1 + Math.floor(score / 6);
+    var dt = Math.min(0.05, (ts - last) / 1000); last = ts;
+    update(dt);
+    if (!running) { return; }
     stats(); draw();
-    timer = setTimeout(loop, speed());
-  }
-  function turn(dx, dy) {
-    if (!running || paused) { return; }
-    if (dx === -dir.x && dy === -dir.y) { return; }
-    nextDir = { x: dx, y: dy };
+    raf = requestAnimationFrame(frame);
   }
   function togglePause() {
     if (!running) { return; }
-    clearTimeout(timer); paused = !paused; draw();
-    if (!paused) { loop(); }
+    if (paused && !inView) { return; }
+    paused = !paused;
+    if (paused) { cancelAnimationFrame(raf); draw(); }
+    else { last = performance.now(); raf = requestAnimationFrame(frame); }
   }
-  $("sn-start").onclick = function () {
-    clearTimeout(timer); reset(); running = true; this.textContent = "Restart"; draw();
-    timer = setTimeout(loop, speed());
+  function jump() {
+    if (!running) { return; }
+    if (paused) { togglePause(); return; }
+    if (p.y >= GY) { p.vy = -JUMP; }
+  }
+  function setLevel(i) {
+    cancelAnimationFrame(raf); running = false; lv = i;
+    document.querySelectorAll("#cr-lv button").forEach(function (b, j) { b.setAttribute("aria-pressed", j === i ? "true" : "false"); });
+    $("cr-info").textContent = LEVELS[i].info;
+    $("cr-start").textContent = "Play";
+    try { localStorage.setItem("cyberRunLevel", i); } catch (e) {}
+    reset(); draw();
+  }
+  document.querySelectorAll("#cr-lv button").forEach(function (b, j) { b.onclick = function () { setLevel(j); }; });
+  $("cr-start").onclick = function () {
+    cancelAnimationFrame(raf); reset(); running = true; this.textContent = "Restart"; this.blur();
+    last = performance.now(); raf = requestAnimationFrame(frame);
   };
   document.addEventListener("keydown", function (e) {
-    if (!running || /INPUT|TEXTAREA/.test(e.target.tagName)) { return; }
-    var k = e.key.toLowerCase(), m = { arrowup: [0, -1], w: [0, -1], arrowdown: [0, 1], s: [0, 1], arrowleft: [-1, 0], a: [-1, 0], arrowright: [1, 0], d: [1, 0] };
-    if (m[k]) { e.preventDefault(); turn(m[k][0], m[k][1]); }
-    else if (k === " ") { e.preventDefault(); togglePause(); }
+    if (!running || /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) { return; }
+    var k = e.key.toLowerCase();
+    if (k === "p" || k === "escape") { togglePause(); return; }
+    if (paused || !inView) { return; }
+    if (k === " " || k === "arrowup" || k === "w") { e.preventDefault(); jump(); }
   });
-  document.querySelectorAll(".dpad button").forEach(function (b) {
-    b.onclick = function () { turn(+b.getAttribute("data-dx"), +b.getAttribute("data-dy")); };
-  });
-  var tx = 0, ty = 0;
-  sn.addEventListener("touchstart", function (e) { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
-  sn.addEventListener("touchend", function (e) {
-    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
-    if (Math.max(Math.abs(dx), Math.abs(dy)) < 20) { return; }
-    if (Math.abs(dx) > Math.abs(dy)) { turn(dx > 0 ? 1 : -1, 0); } else { turn(0, dy > 0 ? 1 : -1); }
-  }, { passive: true });
-  new IntersectionObserver(function (en) { if (!en[0].isIntersecting && running && !paused) { togglePause(); } }).observe(sn);
-  reset(); draw();
+  cv.addEventListener("pointerdown", function (e) { if (running) { e.preventDefault(); jump(); } });
+  $("cr-jump").addEventListener("pointerdown", function (e) { e.preventDefault(); jump(); });
+  document.addEventListener("visibilitychange", function () { if (document.hidden && running && !paused) { togglePause(); } });
+  new IntersectionObserver(function (en) {
+    inView = en[0].isIntersecting;
+    if (!inView && running && !paused) { togglePause(); }
+  }).observe(cv);
+  setLevel(lv);
 
   // Contact form (Formspree)
   var form = $("cform"), statusEl = $("status");
