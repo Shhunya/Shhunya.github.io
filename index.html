@@ -81,6 +81,81 @@
   </section>
 
   <footer>&copy; 2026 Dipak. Built with GitHub Pages.</footer>
+<style>
+  #shh-btn { position: fixed; bottom: 20px; right: 20px; background: #38bdf8; color: #0f172a; border: none; border-radius: 30px; padding: 14px 20px; font-weight: bold; cursor: pointer; z-index: 1000; }
+  #shh-box { display: none; position: fixed; bottom: 80px; right: 20px; width: 320px; max-width: 90vw; height: 420px; background: #1e293b; border-radius: 12px; flex-direction: column; overflow: hidden; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+  #shh-head { background: #0b1220; padding: 12px; color: #38bdf8; font-weight: bold; }
+  #shh-msgs { flex: 1; overflow-y: auto; padding: 12px; font-size: 0.9rem; }
+  .shh-m { margin-bottom: 10px; padding: 8px 12px; border-radius: 10px; max-width: 85%; }
+  .shh-bot { background: #0f172a; }
+  .shh-me { background: #38bdf8; color: #0f172a; margin-left: auto; }
+  #shh-row { display: flex; border-top: 1px solid #334155; }
+  #shh-in { flex: 1; padding: 12px; border: none; background: #0f172a; color: #e2e8f0; }
+  #shh-send { border: none; background: #38bdf8; padding: 0 16px; font-weight: bold; cursor: pointer; }
+</style>
 
+<button id="shh-btn">Ask Shhunya</button>
+
+<div id="shh-box">
+  <div id="shh-head">Shhunya (Dipak's assistant)</div>
+  <div id="shh-msgs"></div>
+  <div id="shh-row">
+    <input id="shh-in" type="text" placeholder="Ask me about Dipak...">
+    <button id="shh-send">Send</button>
+  </div>
+</div>
+
+<script>
+  var answers = [
+    { words: ["hi", "hello", "hey"], reply: "Hello! I'm Shhunya, Dipak's assistant. Ask me about his studies, skills or projects." },
+    { words: ["who", "about", "yourself"], reply: "Dipak is a BSc Computing Systems student at Ulster University, interested in cybersecurity." },
+    { words: ["skill", "know", "language"], reply: "Dipak works with Python, HTML, Git and GitHub, and is learning cybersecurity." },
+    { words: ["certificate", "certification", "qualification"], reply: "Dipak holds the Google Cybersecurity Professional Certificate." },
+    { words: ["study", "university", "degree", "course"], reply: "He studies BSc (Hons) Computing Systems at Ulster University." },
+    { words: ["project", "work", "portfolio"], reply: "See the Projects section on this page. This website is one of his projects!" },
+    { words: ["contact", "email", "hire", "message"], reply: "Please use the Contact section at the bottom of this page." }
+  ];
+  var fallback = "Sorry, I don't know that yet. Try asking about Dipak's skills, studies, projects or how to contact him.";
+
+  var box = document.getElementById("shh-box");
+  var msgs = document.getElementById("shh-msgs");
+  var input = document.getElementById("shh-in");
+
+  function addMsg(text, who) {
+    var d = document.createElement("div");
+    d.className = "shh-m " + who;
+    d.textContent = text;
+    msgs.appendChild(d);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function reply(q) {
+    q = q.toLowerCase();
+    for (var i = 0; i < answers.length; i++) {
+      for (var j = 0; j < answers[i].words.length; j++) {
+        if (q.indexOf(answers[i].words[j]) !== -1) { return answers[i].reply; }
+      }
+    }
+    return fallback;
+  }
+
+  function send() {
+    var q = input.value.trim();
+    if (q === "") { return; }
+    addMsg(q, "shh-me");
+    input.value = "";
+    setTimeout(function () { addMsg(reply(q), "shh-bot"); }, 400);
+  }
+
+  document.getElementById("shh-btn").onclick = function () {
+    var open = box.style.display === "flex";
+    box.style.display = open ? "none" : "flex";
+    if (!open && msgs.children.length === 0) {
+      addMsg("Hi! I'm Shhunya. Ask me about Dipak's skills, studies or projects.", "shh-bot");
+    }
+  };
+  document.getElementById("shh-send").onclick = send;
+  input.onkeydown = function (e) { if (e.key === "Enter") { send(); } };
+</script>
 </body>
 </html>
