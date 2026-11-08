@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dipak | Portfolio</title>
-<meta name="description" content="Portfolio of Dipak, BSc Computing Systems student at Ulster University, building a career in cybersecurity.">
+<meta name="description" content="Portfolio of Dipak, a computing student building a career in cybersecurity.">
 <style>
   :root { --bg:#ffffff; --bg2:#f5f5f7; --text:#111111; --muted:#6b7280; --line:#e5e7eb; --accent:#111111; --accent-text:#ffffff; --card:#ffffff; --glow:rgba(99,102,241,.18); }
   body.dark { --bg:#0a0a0a; --bg2:#141414; --text:#f5f5f5; --muted:#9ca3af; --line:#262626; --accent:#ffffff; --accent-text:#111111; --card:#141414; --glow:rgba(99,102,241,.28); }
@@ -80,7 +80,26 @@
   textarea { min-height:140px; resize:vertical; }
   #status { color:var(--muted); min-height:1.5em; }
   footer { border-top:1px solid var(--line); padding:36px 0; text-align:center; color:var(--muted); font-size:.9rem; position:relative; z-index:1; }
-  #shh-btn { position:fixed; bottom:20px; right:20px; background:var(--accent); color:var(--accent-text); border:none; border-radius:999px; padding:14px 22px; font-weight:600; font-family:inherit; font-size:1rem; cursor:pointer; z-index:1000; box-shadow:0 8px 24px rgba(0,0,0,.25); }
+  #shh-btn { position:fixed; bottom:20px; right:20px; display:flex; align-items:center; gap:10px; background:var(--accent); color:var(--accent-text); border:none; border-radius:999px; padding:16px 26px; font-weight:700; font-family:inherit; font-size:1.05rem; cursor:pointer; z-index:1000; box-shadow:0 8px 24px rgba(0,0,0,.25); animation:ring 2.2s infinite; }
+  #shh-btn::before { content:""; width:10px; height:10px; border-radius:50%; background:#22c55e; box-shadow:0 0 0 3px rgba(34,197,94,.3); }
+  #shh-btn.seen { animation:none; }
+  @keyframes ring { 0% { box-shadow:0 0 0 0 rgba(99,102,241,.65),0 8px 24px rgba(0,0,0,.25); } 70% { box-shadow:0 0 0 18px rgba(99,102,241,0),0 8px 24px rgba(0,0,0,.25); } 100% { box-shadow:0 0 0 0 rgba(99,102,241,0),0 8px 24px rgba(0,0,0,.25); } }
+  #shh-hint { display:none; position:fixed; bottom:88px; right:20px; width:250px; max-width:calc(100vw - 40px); background:var(--card); color:var(--text); border:1px solid var(--line); border-radius:18px 18px 4px 18px; padding:14px 40px 14px 16px; font-size:.92rem; line-height:1.45; z-index:1000; box-shadow:0 12px 32px rgba(0,0,0,.25); }
+  #shh-hint.show { display:block; animation:pop .4s ease-out; }
+  #shh-hint button { position:absolute; top:6px; right:6px; width:28px; height:28px; border:none; border-radius:50%; background:none; color:var(--muted); font-size:1.2rem; cursor:pointer; }
+  #shh-hint button:hover { background:var(--line); color:var(--text); }
+  @keyframes pop { from { opacity:0; transform:translateY(10px) scale(.95); } to { opacity:1; transform:none; } }
+  /* Shared labels and stats */
+  .sub { font-size:1.25rem; margin-bottom:14px; }
+  .stats { display:flex; flex-wrap:wrap; gap:8px 28px; margin:14px 0 18px; color:var(--muted); font-size:.95rem; }
+  .stats b { color:var(--text); font-size:1.15rem; }
+  /* Snake */
+  #sn { display:block; width:100%; max-width:360px; aspect-ratio:1; margin:0 auto 14px; border:1px solid var(--line); border-radius:14px; touch-action:none; background:var(--bg2); }
+  .dpad { display:none; grid-template-columns:repeat(3,58px); gap:8px; justify-content:center; margin:0 auto 16px; }
+  .dpad button { height:52px; border:1px solid var(--line); border-radius:14px; background:var(--bg2); color:var(--text); font-size:1.1rem; cursor:pointer; }
+  .dpad button:active { background:var(--line); }
+  @media (hover:none) { .dpad { display:grid; } }
+  @media (prefers-reduced-motion:reduce) { #shh-btn { animation:none; } #shh-hint.show { animation:none; } }
   #shh-box { display:none; position:fixed; bottom:80px; right:20px; width:330px; max-width:calc(100vw - 40px); height:430px; max-height:calc(100vh - 110px); background:var(--card); border:1px solid var(--line); border-radius:20px; flex-direction:column; overflow:hidden; z-index:1000; box-shadow:0 12px 40px rgba(0,0,0,.25); }
   #shh-head { background:var(--bg2); padding:10px 10px 10px 14px; font-weight:700; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:10px; }
   #shh-close { background:none; border:none; color:var(--muted); font-size:1.5rem; line-height:1; width:34px; height:34px; border-radius:50%; cursor:pointer; flex-shrink:0; transition:background .2s,color .2s; }
@@ -106,7 +125,7 @@
     <nav id="nav" aria-label="Main">
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
-      <a href="#lab">Cipher lab</a>
+      <a href="#lab">Playground</a>
       <a href="#path">Path</a>
       <a href="#contact">Contact</a>
       <button class="pill" id="theme" aria-pressed="false">Light / Dark</button>
@@ -116,7 +135,7 @@
 
 <main id="top">
   <div class="wrap hero">
-    <span class="tag">BSc Computing Systems &middot; Ulster University</span>
+    <span class="tag">BSc Computing Systems</span>
     <h1>Computing student building a career in cybersecurity.</h1>
     <p>I learn how systems work, how they break, and how to protect them.</p>
     <div class="btns">
@@ -137,7 +156,7 @@
       <p class="eyebrow">About</p>
       <h2>A student with a builder's mindset.</h2>
       <div class="grid">
-        <div class="card"><h3>Studying</h3><p>BSc (Hons) Computing Systems at Ulster University.</p></div>
+        <div class="card"><h3>Studying</h3><p>BSc (Hons) Computing Systems.</p></div>
         <div class="card"><h3>Certified</h3><p>Google Cybersecurity Professional Certificate.</p></div>
         <div class="card"><h3>Learning</h3><p>Programming, networking and security, one project at a time.</p></div>
       </div>
@@ -151,16 +170,17 @@
       <div class="grid">
         <div class="card"><h3>This Website</h3><p>My portfolio, built with HTML, CSS and JavaScript and hosted free on GitHub Pages.</p><span class="meta">HTML &middot; CSS &middot; JavaScript</span></div>
         <div class="card"><h3>Shhunya AI Chatbot</h3><p>An AI assistant on this site, powered by Google Gemini through a Cloudflare Worker.</p><span class="meta">JavaScript &middot; Cloudflare Workers &middot; Gemini</span></div>
-        <div class="card"><h3>Cipher Lab</h3><p>An interactive Caesar cipher you can try on this page, showing why old encryption is easy to break.</p><a class="meta" href="#lab" style="color:inherit">Try it below <span class="arrow" style="margin:0">&rarr;</span></a></div>
-        <div class="card"><h3>Your next project</h3><p>Edit this card to add a university or personal project.</p><span class="meta">Coming soon</span></div>
+        <div class="card"><h3>Playground</h3><p>Two things to play with on this page: a Caesar cipher and a Snake game with levels and bonus food.</p><a class="meta" href="#lab" style="color:inherit">Try them below <span class="arrow" style="margin:0">&rarr;</span></a></div>
+        <div class="card"><h3>Next project</h3><p>Something new is in the works. Check back soon.</p><span class="meta">Coming soon</span></div>
       </div>
     </div>
   </section>
 
   <section id="lab">
     <div class="wrap reveal">
-      <p class="eyebrow">Cipher lab</p>
-      <h2>Try a Caesar cipher.</h2>
+      <p class="eyebrow">Playground</p>
+      <h2>Two things to play with.</h2>
+      <h3 class="sub">Caesar cipher</h3>
       <div class="lab">
         <label for="c-in">Your text</label>
         <textarea id="c-in">Attack at dawn</textarea>
@@ -172,6 +192,22 @@
         <div id="out" aria-live="polite"></div>
         <p class="note">Only 25 shifts exist, so anyone can crack this in seconds. Never use it to protect real data.</p>
       </div>
+
+      <h3 class="sub" style="margin-top:56px">Snake</h3>
+      <div class="lab">
+        <div class="stats" aria-live="off">
+          <span>Score <b id="sn-s">0</b></span>
+          <span>Best <b id="sn-b">0</b></span>
+          <span>Level <b id="sn-l">1</b></span>
+        </div>
+        <canvas id="sn" width="360" height="360" role="img" aria-label="Snake game board"></canvas>
+        <div class="dpad" aria-label="Touch controls">
+          <span></span><button data-dx="0" data-dy="-1" aria-label="Up">&#9650;</button><span></span>
+          <button data-dx="-1" data-dy="0" aria-label="Left">&#9664;</button><button data-dx="0" data-dy="1" aria-label="Down">&#9660;</button><button data-dx="1" data-dy="0" aria-label="Right">&#9654;</button>
+        </div>
+        <div style="text-align:center"><button class="btn" id="sn-start" type="button">Play</button></div>
+        <p class="note" style="text-align:center">Arrow keys or WASD to move, Space to pause. Golden food is worth 5 points but vanishes fast. On a phone, swipe on the board or use the buttons. It speeds up every 6 points.</p>
+      </div>
     </div>
   </section>
 
@@ -180,7 +216,7 @@
       <p class="eyebrow">Path</p>
       <h2>Where I'm heading.</h2>
       <ol class="tl">
-        <li><b>BSc (Hons) Computing Systems</b><span>Ulster University, in progress</span></li>
+        <li><b>BSc (Hons) Computing Systems</b><span>In progress</span></li>
         <li><b>Google Cybersecurity Professional Certificate</b><span>Completed</span></li>
         <li><b>Portfolio and Shhunya AI launched</b><span>2026</span></li>
       </ol>
@@ -205,7 +241,8 @@
 
 <footer>&copy; 2026 Dipak. Built with GitHub Pages.</footer>
 
-<button id="shh-btn" aria-expanded="false" aria-controls="shh-box">Ask Shhunya</button>
+<div id="shh-hint" role="status">Hi! I'm Shhunya, Dipak's AI. Ask me anything about him.<button id="shh-hint-x" aria-label="Dismiss">&times;</button></div>
+<button id="shh-btn" aria-expanded="false" aria-controls="shh-box">Ask Shhunya AI</button>
 <div id="shh-box" role="dialog" aria-label="Shhunya chat">
   <div id="shh-head"><span>Shhunya, Dipak's AI assistant</span><button id="shh-close" aria-label="Close chat">&times;</button></div>
   <div id="shh-msgs" aria-live="polite"></div>
@@ -235,6 +272,7 @@
   function setDark(on) {
     document.body.classList.toggle("dark", on);
     themeBtn.setAttribute("aria-pressed", on);
+    if (typeof draw === "function") { draw(); }
     try { localStorage.setItem("dark", on ? "1" : "0"); } catch (e) {}
   }
   var saved = null;
@@ -279,6 +317,105 @@
   $("c-shift").oninput = runCipher;
   runCipher();
 
+  // Snake game
+  var sn = $("sn"), cx = sn.getContext("2d"), N = 18, CS = sn.width / N;
+  var snake, dir, nextDir, food, bonus, score = 0, level = 1, best = 0, timer, running = false, paused = false, over = false;
+  try { best = parseInt(localStorage.getItem("snakeBest"), 10) || 0; } catch (e) {}
+  function css(v) { return getComputedStyle(document.body).getPropertyValue(v).trim(); }
+  function same(a, b) { return a && b && a.x === b.x && a.y === b.y; }
+  function free() {
+    var p;
+    do { p = { x: Math.floor(Math.random() * N), y: Math.floor(Math.random() * N) }; }
+    while (snake.some(function (s) { return same(s, p); }) || same(food, p) || same(bonus, p));
+    return p;
+  }
+  function stats() { $("sn-s").textContent = score; $("sn-l").textContent = level; $("sn-b").textContent = best; }
+  function reset() {
+    snake = [{ x: 9, y: 9 }, { x: 8, y: 9 }, { x: 7, y: 9 }];
+    dir = { x: 1, y: 0 }; nextDir = dir; food = null; bonus = null;
+    food = free(); score = 0; level = 1; over = false; paused = false; stats();
+  }
+  function speed() { return Math.max(60, 150 - (level - 1) * 14); }
+  function draw() {
+    if (!snake) { return; }
+    cx.fillStyle = css("--bg2"); cx.fillRect(0, 0, sn.width, sn.height);
+    cx.strokeStyle = css("--line"); cx.lineWidth = 0.5;
+    for (var i = 1; i < N; i++) {
+      cx.beginPath(); cx.moveTo(i * CS, 0); cx.lineTo(i * CS, sn.height); cx.stroke();
+      cx.beginPath(); cx.moveTo(0, i * CS); cx.lineTo(sn.width, i * CS); cx.stroke();
+    }
+    if (food) { cx.fillStyle = "#ef4444"; cx.beginPath(); cx.arc(food.x * CS + CS / 2, food.y * CS + CS / 2, CS / 2 - 3, 0, 7); cx.fill(); }
+    if (bonus) {
+      var left = Math.max(0, (bonus.t - Date.now()) / 5000), bx = bonus.x * CS + CS / 2, by = bonus.y * CS + CS / 2;
+      cx.fillStyle = "#f59e0b"; cx.beginPath(); cx.arc(bx, by, CS / 2 - 2, 0, 7); cx.fill();
+      cx.strokeStyle = "#f59e0b"; cx.lineWidth = 2; cx.beginPath(); cx.arc(bx, by, CS / 2 + 1, -1.57, -1.57 + 6.28 * left); cx.stroke();
+    }
+    snake.forEach(function (s, i) {
+      cx.fillStyle = i === 0 ? "#a5b4fc" : "#6366f1";
+      cx.fillRect(s.x * CS + 1, s.y * CS + 1, CS - 2, CS - 2);
+    });
+    if (!running || paused) {
+      cx.fillStyle = "rgba(0,0,0,.6)"; cx.fillRect(0, 0, sn.width, sn.height);
+      cx.fillStyle = "#fff"; cx.textAlign = "center"; cx.font = "700 26px system-ui,sans-serif";
+      cx.fillText(over ? "Game over: " + score : (paused ? "Paused" : "Press Play"), sn.width / 2, sn.height / 2);
+      if (over && score > 0 && score >= best) { cx.font = "500 16px system-ui,sans-serif"; cx.fillText("New best score!", sn.width / 2, sn.height / 2 + 30); }
+    }
+  }
+  function end() {
+    running = false; over = true;
+    if (score > best) { best = score; try { localStorage.setItem("snakeBest", best); } catch (e) {} }
+    stats(); draw(); $("sn-start").textContent = "Play again";
+  }
+  function loop() {
+    if (!running || paused) { return; }
+    dir = nextDir;
+    var h = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+    if (h.x < 0 || h.y < 0 || h.x >= N || h.y >= N || snake.some(function (s) { return same(s, h); })) { end(); return; }
+    snake.unshift(h);
+    var ate = false;
+    if (same(h, food)) {
+      score++; ate = true; food = free();
+      if (!bonus && score % 4 === 0) { bonus = free(); bonus.t = Date.now() + 5000; }
+    } else if (same(h, bonus)) { score += 5; ate = true; bonus = null; }
+    if (!ate) { snake.pop(); }
+    if (bonus && Date.now() > bonus.t) { bonus = null; }
+    level = 1 + Math.floor(score / 6);
+    stats(); draw();
+    timer = setTimeout(loop, speed());
+  }
+  function turn(dx, dy) {
+    if (!running || paused) { return; }
+    if (dx === -dir.x && dy === -dir.y) { return; }
+    nextDir = { x: dx, y: dy };
+  }
+  function togglePause() {
+    if (!running) { return; }
+    clearTimeout(timer); paused = !paused; draw();
+    if (!paused) { loop(); }
+  }
+  $("sn-start").onclick = function () {
+    clearTimeout(timer); reset(); running = true; this.textContent = "Restart"; draw();
+    timer = setTimeout(loop, speed());
+  };
+  document.addEventListener("keydown", function (e) {
+    if (!running || /INPUT|TEXTAREA/.test(e.target.tagName)) { return; }
+    var k = e.key.toLowerCase(), m = { arrowup: [0, -1], w: [0, -1], arrowdown: [0, 1], s: [0, 1], arrowleft: [-1, 0], a: [-1, 0], arrowright: [1, 0], d: [1, 0] };
+    if (m[k]) { e.preventDefault(); turn(m[k][0], m[k][1]); }
+    else if (k === " ") { e.preventDefault(); togglePause(); }
+  });
+  document.querySelectorAll(".dpad button").forEach(function (b) {
+    b.onclick = function () { turn(+b.getAttribute("data-dx"), +b.getAttribute("data-dy")); };
+  });
+  var tx = 0, ty = 0;
+  sn.addEventListener("touchstart", function (e) { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+  sn.addEventListener("touchend", function (e) {
+    var dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.max(Math.abs(dx), Math.abs(dy)) < 20) { return; }
+    if (Math.abs(dx) > Math.abs(dy)) { turn(dx > 0 ? 1 : -1, 0); } else { turn(0, dy > 0 ? 1 : -1); }
+  }, { passive: true });
+  new IntersectionObserver(function (en) { if (!en[0].isIntersecting && running && !paused) { togglePause(); } }).observe(sn);
+  reset(); draw();
+
   // Contact form (Formspree)
   var form = $("cform"), statusEl = $("status");
   form.addEventListener("submit", function (e) {
@@ -303,7 +440,7 @@
     { words: ["hi", "hello", "hey"], reply: "Hello! I'm Shhunya, Dipak's assistant. Ask me about his studies, skills or projects." },
     { words: ["skill", "know", "language"], reply: "Dipak works with Python, HTML, JavaScript, Git and GitHub, and is learning cybersecurity." },
     { words: ["certificate", "certification", "qualification"], reply: "Dipak holds the Google Cybersecurity Professional Certificate." },
-    { words: ["study", "university", "degree", "course"], reply: "He studies BSc (Hons) Computing Systems at Ulster University." },
+    { words: ["study", "university", "degree", "course"], reply: "He studies BSc (Hons) Computing Systems." },
     { words: ["project", "work", "portfolio"], reply: "See the Projects section on this page." },
     { words: ["contact", "email", "hire", "message"], reply: "Please use the contact form at the bottom of this page." }
   ];
@@ -359,6 +496,8 @@
   }
 
   function openChat() {
+    $("shh-hint").classList.remove("show");
+    chatBtn.classList.add("seen");
     box.style.display = "flex";
     chatBtn.setAttribute("aria-expanded", "true");
     if (msgs.children.length === 0) {
@@ -373,6 +512,11 @@
   }
   chatBtn.onclick = function () { if (box.style.display === "flex") { closeChat(); } else { openChat(); } };
   $("shh-close").onclick = closeChat;
+  $("shh-hint-x").onclick = function () { $("shh-hint").classList.remove("show"); };
+  setTimeout(function () {
+    if (box.style.display !== "flex") { $("shh-hint").classList.add("show"); }
+  }, 2500);
+  setTimeout(function () { $("shh-hint").classList.remove("show"); }, 15000);
   $("shh-send").onclick = send;
   input.onkeydown = function (e) { if (e.key === "Enter") { send(); } };
   document.addEventListener("keydown", function (e) {
