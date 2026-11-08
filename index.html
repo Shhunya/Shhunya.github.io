@@ -1,10 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Student Website</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dipak | Portfolio</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; line-height: 1.6; background: #0f172a; color: #e2e8f0; }
+    header { position: sticky; top: 0; background: #0b1220; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    header strong { font-size: 1.2rem; color: #38bdf8; }
+    nav a { color: #e2e8f0; text-decoration: none; margin-left: 18px; }
+    nav a:hover { color: #38bdf8; }
+    section { max-width: 900px; margin: 0 auto; padding: 60px 20px; }
+    h1 { font-size: 2.4rem; margin-bottom: 10px; }
+    h2 { color: #38bdf8; margin-bottom: 20px; }
+    .hero { text-align: center; padding-top: 90px; }
+    .button { display: inline-block; margin-top: 20px; padding: 12px 24px; background: #38bdf8; color: #0f172a; text-decoration: none; border-radius: 6px; font-weight: bold; }
+    .skills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skills span { background: #1e293b; padding: 8px 16px; border-radius: 20px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .card { background: #1e293b; padding: 20px; border-radius: 10px; }
+    .card h3 { margin-bottom: 8px; }
+    footer { text-align: center; padding: 30px; background: #0b1220; font-size: 0.9rem; }
+  </style>
 </head>
 <body>
-  <h1>Hello, this is my website!</h1>
-  <p>Built with GitHub Pages.</p>
+
+  <header>
+    <strong>Dipak</strong>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Hi, I'm Dipak</h1>
+    <p>Computing Systems student interested in cybersecurity.</p>
+    <a class="button" href="#projects">See my work</a>
+  </section>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I am a BSc Computing Systems student at Ulster University. I hold the Google Cybersecurity Professional Certificate and I am building my skills in programming and security. (Edit this text to say whatever you like.)</p>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills">
+      <span>Python</span>
+      <span>HTML</span>
+      <span>Git and GitHub</span>
+      <span>Cybersecurity basics</span>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>This Website</h3>
+        <p>My portfolio, built with HTML and hosted free on GitHub Pages.</p>
+      </div>
+      <div class="card">
+        <h3>Project 2</h3>
+        <p>Add a university or personal project here.</p>
+      </div>
+      <div class="card">
+        <h3>Project 3</h3>
+        <p>Add another project here.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>A contact form is coming soon.</p>
+  </section>
+
+  <footer>&copy; 2026 Dipak. Built with GitHub Pages.</footer>
+
 </body>
 </html>
