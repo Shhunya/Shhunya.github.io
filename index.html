@@ -2,735 +2,663 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Dipak · Order in Chaos | Systems & Cybersecurity</title>
-<meta name="description" content="Dipak — Computing systems engineer building order out of chaos through resilient architecture and cybersecurity.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dipak | Portfolio</title>
+<meta name="description" content="Portfolio of Dipak, a computing student building a career in cybersecurity.">
 <style>
-:root{
-  --bg:#080808;
-  --bg-card:rgba(18,18,18,0.68);
-  --border:rgba(255,255,255,0.08);
-  --border-hover:rgba(220,220,220,0.42);
-  --text:#f8fafc;
-  --muted:#a0a0a0;
-  --dim:#666666;
-  --cyan:#d7d7d7;
-  --indigo:#8a8a8a;
-  --amber:#bcbcbc;
-  --mono:'Space Mono',monospace;
-  --sans:'Plus Jakarta Sans',sans-serif;
-  --serif:'Cinzel',Georgia,serif;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden}
-
-/* Custom Cursor */
-@media (hover:hover) and (pointer:fine){
-  *{cursor:none !important}
-  #cursor{
-    position:fixed;top:0;left:0;width:6px;height:6px;background:#fff;border-radius:50%;
-    pointer-events:none;z-index:10001;transform:translate(-50%,-50%);
-    box-shadow:0 0 14px rgba(255,255,255,.65);transition:width .22s,height .22s,background .22s;
+  :root { --bg:#ffffff; --bg2:#f5f5f7; --text:#111111; --muted:#6b7280; --line:#e5e7eb; --accent:#111111; --accent-text:#ffffff; --card:#ffffff; --glow:rgba(99,102,241,.18); }
+  body.dark { --bg:#0a0a0a; --bg2:#141414; --text:#f5f5f5; --muted:#9ca3af; --line:#262626; --accent:#ffffff; --accent-text:#111111; --card:#141414; --glow:rgba(99,102,241,.28); }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; scroll-padding-top:70px; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; transition:background .3s,color .3s; overflow-x:hidden; }
+  :focus-visible { outline:3px solid #6366f1; outline-offset:3px; border-radius:8px; }
+  #progress { position:fixed; top:0; left:0; height:3px; width:0; background:#6366f1; z-index:1100; }
+  #glow { position:fixed; top:0; left:0; width:500px; height:500px; margin:-250px 0 0 -250px; border-radius:50%; background:radial-gradient(circle,var(--glow),transparent 70%); pointer-events:none; z-index:0; transition:transform .15s ease-out; }
+  header { position:sticky; top:0; z-index:900; background:color-mix(in srgb,var(--bg) 85%,transparent); backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
+  .bar { max-width:1100px; margin:0 auto; padding:14px 24px; display:flex; justify-content:space-between; align-items:center; }
+  .logo { font-weight:800; font-size:1.2rem; text-decoration:none; color:var(--text); }
+  nav { display:flex; align-items:center; gap:22px; }
+  nav a { color:var(--muted); text-decoration:none; font-size:.95rem; transition:color .2s; }
+  nav a:hover, nav a.on { color:var(--text); }
+  .pill { border:1px solid var(--line); background:var(--bg); color:var(--text); border-radius:999px; padding:8px 16px; cursor:pointer; font-size:.9rem; }
+  #menu { display:none; background:none; border:none; color:var(--text); font-size:1.6rem; cursor:pointer; }
+  @media (max-width:760px) {
+    #menu { display:block; }
+    nav { display:none; position:absolute; top:100%; left:0; right:0; background:var(--bg); flex-direction:column; padding:20px; border-bottom:1px solid var(--line); }
+    nav.open { display:flex; }
   }
-  #cursor-follower{
-    position:fixed;top:0;left:0;width:38px;height:38px;border:1px solid rgba(255,255,255,.58);
-    border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);
-    display:grid;place-items:center;color:#fff;font:700 8px var(--mono);letter-spacing:.08em;
-    transition:width .28s cubic-bezier(.2,.8,.2,1),height .28s cubic-bezier(.2,.8,.2,1),
-      border-color .25s,background .25s,transform .12s ease-out;
-    backdrop-filter:blur(3px);
-  }
-  #cursor-follower::after{content:"";position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;opacity:.8}
-  #cursor-follower.hovered{width:66px;height:66px;border-color:#fff;background:rgba(255,255,255,.09)}
-  #cursor-follower.hovered::after{opacity:0}
-  #cursor-follower[data-label]:not([data-label=""])::before{content:attr(data-label);position:relative;z-index:1}
-  #cursor-follower[data-label]:not([data-label=""])::after{display:none}
-  #cursor.is-hover{width:9px;height:9px;background:#d5d5d5}
-}
-@media (hover:none),(pointer:coarse){#cursor,#cursor-follower{display:none}}
-
-/* Film grain overlay */
-body::after{
-  content:"";position:fixed;inset:0;
-  background-image:radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size:24px 24px;
-  pointer-events:none;z-index:900;
-}
-
-#canvas-container{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-main,header,footer{position:relative;z-index:10}
-
-/* Header */
-header{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  padding:22px 40px;
-  display:flex;justify-content:space-between;align-items:center;
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
-}
-@media(max-width:768px){header{padding:16px 20px}}
-.brand{font-family:var(--mono);font-size:.9rem;letter-spacing:.08em;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:12px}
-.pulse-orb{width:6px;height:6px;background:var(--cyan);border-radius:50%;box-shadow:0 0 12px var(--cyan);animation:pulse 2s infinite ease-in-out}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
-
-.nav-links{display:flex;gap:32px;align-items:center}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;font-family:var(--mono);letter-spacing:.05em;transition:color .25s}
-.nav-links a:hover{color:var(--cyan)}
-.nav-status{font-family:var(--mono);font-size:.78rem;color:var(--dim);border:1px solid var(--border);padding:6px 14px;border-radius:999px;background:var(--bg-card)}
-@media(max-width:768px){.nav-links a{display:none}}
-
-/* Hero Section */
-.hero{
-  min-height:100vh;padding:140px 40px 60px;
-  max-width:1240px;margin:0 auto;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  position:relative;
-}
-@media(max-width:768px){.hero{padding:120px 20px 40px}}
-.hero-pre{
-  font-family:var(--mono);font-size:.82rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cyan);margin-bottom:20px;
-  display:flex;align-items:center;gap:12px;
-}
-.hero-pre::before{content:"";width:24px;height:1px;background:var(--cyan)}
-h1.hero-title{
-  font-family:var(--sans);font-weight:800;font-size:clamp(2.8rem,7.5vw,6.5rem);
-  line-height:.98;letter-spacing:-.04em;max-width:1050px;margin-bottom:32px;
-}
-h1.hero-title span.italic{font-family:var(--serif);font-weight:400;font-style:italic;color:var(--cyan);letter-spacing:-.02em}
-.hero-bottom{
-  display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:flex-end;
-  border-top:1px solid var(--border);padding-top:32px;margin-top:20px;
-}
-@media(max-width:800px){.hero-bottom{grid-template-columns:1fr;gap:24px}}
-.hero-bio{font-size:1.15rem;color:var(--muted);line-height:1.6;font-weight:300;max-width:540px}
-.hero-actions{display:flex;flex-direction:column;align-items:flex-end;gap:14px}
-@media(max-width:800px){.hero-actions{align-items:flex-start}}
-.hero-meta{font-family:var(--mono);font-size:.78rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
-
-.interaction-hint{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:var(--mono);font-size:.75rem;color:var(--cyan);
-  padding:6px 14px;border-radius:999px;background:rgba(220,220,220,0.06);border:1px solid rgba(220,220,220,0.2);
-}
-
-/* Sections */
-section{padding:140px 40px;max-width:1240px;margin:0 auto}
-@media(max-width:768px){section{padding:90px 20px}}
-.sec-header{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid var(--border);padding-bottom:28px;margin-bottom:60px}
-.sec-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-.02em;font-weight:500}
-.sec-index{font-family:var(--mono);font-size:.85rem;color:var(--dim)}
-
-/* Split Story / Philosophy: The Order & The Chaos */
-.narrative-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-@media(max-width:800px){.narrative-grid{grid-template-columns:1fr}}
-.narrative-card{
-  background:var(--bg-card);border:1px solid var(--border);border-radius:24px;padding:48px;
-  backdrop-filter:blur(20px);position:relative;overflow:hidden;transition:border-color .3s;
-}
-.narrative-card:hover{border-color:var(--border-hover)}
-.card-num{font-family:var(--mono);font-size:.8rem;color:var(--cyan);margin-bottom:28px;display:block}
-.narrative-card h3{font-family:var(--serif);font-size:1.9rem;margin-bottom:16px;letter-spacing:-.01em}
-.narrative-card p{color:var(--muted);font-size:1.05rem;line-height:1.7;font-weight:300}
-
-/* Project Cards: Clean Architectural Showcases */
-.project-list{display:flex;flex-direction:column;gap:32px}
-.project-row{
-  display:grid;grid-template-columns:2fr 1.2fr;gap:40px;
-  background:var(--bg-card);border:1px solid var(--border);border-radius:24px;padding:44px;
-  backdrop-filter:blur(16px);transition:transform .3s ease,border-color .3s;
-  text-decoration:none;color:inherit;
-}
-@media(max-width:800px){.project-row{grid-template-columns:1fr;gap:20px;padding:28px}}
-.project-row:hover{border-color:var(--border-hover);transform:translateY(-3px)}
-.project-info h4{font-family:var(--serif);font-size:1.8rem;margin-bottom:12px;color:var(--text)}
-.project-info p{color:var(--muted);font-size:1rem;line-height:1.6;font-weight:300;max-width:580px}
-.project-side{display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end}
-@media(max-width:800px){.project-side{align-items:flex-start;gap:16px}}
-.stack-tags{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-@media(max-width:800px){.stack-tags{justify-content:flex-start}}
-.tag-pill{
-  font-family:var(--mono);font-size:.75rem;padding:4px 12px;border-radius:999px;
-  background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--muted);
-}
-.project-link-icon{font-family:var(--mono);font-size:1.1rem;color:var(--cyan)}
-
-/* Cipher Lab */
-.cipher-panel{
-  background:var(--bg-card);border:1px solid var(--border);border-radius:24px;padding:44px;
-  backdrop-filter:blur(20px);max-width:800px;margin:0 auto;
-}
-.cipher-panel label{font-family:var(--mono);font-size:.8rem;color:var(--muted);display:block;margin-bottom:8px;letter-spacing:.05em}
-textarea.input-box{
-  width:100%;padding:18px 20px;border-radius:14px;border:1px solid var(--border);
-  background:rgba(0,0,0,0.4);color:var(--text);font-family:var(--mono);font-size:.95rem;resize:vertical;min-height:90px;
-}
-textarea.input-box:focus{outline:none;border-color:var(--cyan)}
-.cipher-controls{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:24px 0}
-@media(max-width:600px){.cipher-controls{grid-template-columns:1fr}}
-.range-wrapper{display:flex;flex-direction:column;gap:8px}
-input[type=range]{accent-color:var(--cyan);cursor:pointer}
-.mode-toggle{display:flex;border:1px solid var(--border);border-radius:999px;overflow:hidden;background:rgba(0,0,0,0.3)}
-.mode-toggle button{flex:1;padding:10px;background:none;border:none;color:var(--muted);font-family:var(--mono);font-size:.8rem;cursor:pointer}
-.mode-toggle button[aria-pressed=true]{background:var(--cyan);color:#07080c;font-weight:700}
-.output-wrap{position:relative;margin-top:8px}
-.output-field{
-  font-family:var(--mono);background:rgba(0,0,0,0.5);border:1px dashed var(--border);
-  border-radius:14px;padding:18px 20px;color:var(--cyan);min-height:3.6em;word-break:break-all;line-height:1.6;
-}
-.copy-btn{
-  position:absolute;top:12px;right:12px;padding:6px 14px;background:var(--bg-card);
-  border:1px solid var(--border);color:var(--muted);border-radius:8px;font-family:var(--mono);font-size:.75rem;cursor:pointer;
-}
-.copy-btn:hover{color:var(--text);border-color:var(--cyan)}
-
-/* Contact / Transmission */
-.contact-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:50px}
-@media(max-width:800px){.contact-grid{grid-template-columns:1fr}}
-.contact-lead h3{font-family:var(--serif);font-size:2.4rem;line-height:1.2;margin-bottom:18px}
-.contact-lead p{color:var(--muted);font-size:1.1rem;line-height:1.7;font-weight:300}
-.contact-methods{margin-top:32px;display:flex;flex-direction:column;gap:12px}
-.contact-item{font-family:var(--mono);font-size:.9rem;color:var(--cyan);text-decoration:none}
-form.contact-form{display:flex;flex-direction:column;gap:16px}
-input.form-input{
-  padding:16px 20px;border-radius:14px;border:1px solid var(--border);
-  background:var(--bg-card);color:var(--text);font-family:var(--sans);font-size:1rem;
-}
-input.form-input:focus{outline:none;border-color:var(--cyan)}
-.submit-btn{
-  padding:18px 32px;border-radius:999px;background:var(--text);color:var(--bg);
-  border:none;font-weight:700;font-family:var(--mono);font-size:.9rem;cursor:pointer;
-  transition:transform .2s,box-shadow .2s;
-}
-.submit-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(220,220,220,0.18)}
-
-/* Footer */
-footer{
-  border-top:1px solid var(--border);padding:40px;
-  max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;
-  font-family:var(--mono);font-size:.8rem;color:var(--dim);
-}
-@media(max-width:768px){footer{flex-direction:column;gap:14px;text-align:center;padding:30px 20px}}
-
-/* Shhunya AI Chat Drawer */
-#chat-trigger{
-  position:fixed;bottom:28px;right:28px;z-index:2000;
-  background:var(--text);color:var(--bg);border:none;border-radius:999px;
-  padding:14px 24px;font-family:var(--mono);font-size:.85rem;font-weight:700;
-  display:flex;align-items:center;gap:10px;box-shadow:0 12px 35px rgba(0,0,0,0.5);cursor:pointer;
-  transition:transform .2s;
-}
-#chat-trigger:hover{transform:translateY(-2px)}
-#chat-window{
-  display:none;position:fixed;bottom:90px;right:28px;width:360px;max-width:calc(100vw - 40px);
-  height:460px;max-height:calc(100vh - 140px);background:rgba(12,15,24,0.92);
-  border:1px solid var(--border);border-radius:24px;backdrop-filter:blur(24px);
-  z-index:2000;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.7);
-}
-#chat-header{
-  padding:16px 20px;border-bottom:1px solid var(--border);
-  display:flex;justify-content:space-between;align-items:center;
-  font-family:var(--mono);font-size:.82rem;font-weight:700;letter-spacing:.05em;
-}
-#chat-close{background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:pointer}
-#chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;font-size:.9rem}
-.msg{padding:10px 14px;border-radius:14px;max-width:85%;line-height:1.5;background:rgba(255,255,255,0.04);border:1px solid var(--border)}
-.msg.me{margin-left:auto;background:var(--cyan);color:#07080c;font-weight:500;border:none}
-#chat-form{display:flex;border-top:1px solid var(--border)}
-#chat-input{flex:1;border:none;background:transparent;padding:14px 18px;color:var(--text);font-family:var(--sans);font-size:.9rem}
-#chat-input:focus{outline:none}
-#chat-send{background:var(--cyan);border:none;color:#07080c;font-family:var(--mono);font-weight:700;padding:0 20px;cursor:pointer}
+  main { position:relative; z-index:1; }
+  .wrap { max-width:1100px; margin:0 auto; padding:0 24px; }
+  .hero { padding:110px 0 70px; text-align:center; }
+  .tag { display:inline-block; border:1px solid var(--line); background:var(--bg2); border-radius:999px; padding:6px 16px; font-size:.85rem; color:var(--muted); margin-bottom:26px; }
+  .hero h1 { font-size:clamp(2.4rem,7vw,5rem); line-height:1.05; letter-spacing:-0.03em; font-weight:800; max-width:900px; margin:0 auto; }
+  .hero p { color:var(--muted); font-size:1.2rem; max-width:560px; margin:24px auto 0; }
+  .btns { margin-top:34px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .btn { display:inline-block; padding:14px 28px; border-radius:999px; background:var(--accent); color:var(--accent-text); text-decoration:none; font-weight:600; border:1px solid var(--accent); cursor:pointer; font-size:1rem; font-family:inherit; transition:transform .2s,box-shadow .2s; }
+  .btn:hover { transform:translateY(-3px); box-shadow:0 10px 24px rgba(0,0,0,.18); }
+  .btn.ghost { background:transparent; color:var(--text); border:1px solid var(--line); }
+  .marquee { overflow:hidden; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px 0; margin:30px 0 20px; }
+  .track { display:flex; gap:16px; width:max-content; animation:slide 28s linear infinite; }
+  .marquee:hover .track { animation-play-state:paused; }
+  .track span { background:var(--bg2); border:1px solid var(--line); padding:10px 22px; border-radius:999px; font-weight:500; white-space:nowrap; }
+  @keyframes slide { to { transform:translateX(-50%); } }
+  section { padding:80px 0; }
+  .eyebrow { color:var(--muted); font-size:.9rem; text-transform:uppercase; letter-spacing:.1em; margin-bottom:10px; }
+  h2 { font-size:clamp(1.8rem,4vw,3rem); letter-spacing:-0.02em; line-height:1.15; margin-bottom:36px; max-width:700px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:22px; padding:28px; transition:transform .3s,box-shadow .3s,border-color .3s; }
+  .card:hover { transform:translateY(-8px); box-shadow:0 18px 40px rgba(0,0,0,.12); border-color:var(--muted); }
+  .card h3 { margin-bottom:8px; font-size:1.2rem; }
+  .card p { color:var(--muted); }
+  .card .meta { display:block; margin-top:14px; font-size:.88rem; font-weight:600; }
+  .card .arrow { display:inline-block; margin-top:16px; transition:transform .3s; }
+  .card:hover .arrow { transform:translateX(8px); }
+  .reveal { opacity:0; transform:translateY(40px); transition:opacity .8s,transform .8s; }
+  .reveal.show { opacity:1; transform:none; }
+  /* Cipher lab */
+  .lab { max-width:700px; }
+  .lab label { display:block; font-weight:600; font-size:.95rem; margin-bottom:6px; }
+  .lab textarea { width:100%; min-height:90px; resize:vertical; }
+  .ctl { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:18px 0; }
+  @media (max-width:560px) { .ctl { grid-template-columns:1fr; } }
+  input[type=range] { width:100%; accent-color:#6366f1; padding:0; border:0; background:none; }
+  .seg { display:flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; }
+  .seg button { flex:1; padding:11px; border:0; background:var(--bg2); color:var(--muted); cursor:pointer; font:inherit; font-weight:500; }
+  .seg button[aria-pressed=true] { background:var(--accent); color:var(--accent-text); }
+  #out { font-family:ui-monospace,Consolas,monospace; background:var(--bg2); border:1px dashed var(--line); border-radius:14px; padding:14px 18px; min-height:3.4em; word-break:break-word; }
+  .note { font-size:.88rem; color:var(--muted); margin-top:12px; }
+  /* Path */
+  .tl { list-style:none; border-left:2px solid var(--line); margin-left:6px; max-width:700px; }
+  .tl li { position:relative; padding:0 0 28px 28px; }
+  .tl li::before { content:""; position:absolute; left:-7px; top:8px; width:12px; height:12px; border-radius:50%; background:#6366f1; }
+  .tl li:last-child { padding-bottom:0; }
+  .tl b { display:block; font-size:1.1rem; }
+  .tl span { color:var(--muted); font-size:.93rem; }
+  form { display:grid; gap:14px; max-width:620px; }
+  input, textarea { width:100%; padding:14px 18px; border-radius:14px; border:1px solid var(--line); background:var(--bg2); color:var(--text); font-size:1rem; font-family:inherit; }
+  input:focus, textarea:focus { outline:2px solid var(--muted); }
+  textarea { min-height:140px; resize:vertical; }
+  #status { color:var(--muted); min-height:1.5em; }
+  footer { border-top:1px solid var(--line); padding:36px 0; text-align:center; color:var(--muted); font-size:.9rem; position:relative; z-index:1; }
+  #shh-btn { position:fixed; bottom:20px; right:20px; display:flex; align-items:center; gap:10px; background:var(--accent); color:var(--accent-text); border:none; border-radius:999px; padding:16px 26px; font-weight:700; font-family:inherit; font-size:1.05rem; cursor:pointer; z-index:1000; box-shadow:0 8px 24px rgba(0,0,0,.25); animation:ring 2.2s infinite; }
+  #shh-btn::before { content:""; width:10px; height:10px; border-radius:50%; background:#22c55e; box-shadow:0 0 0 3px rgba(34,197,94,.3); }
+  #shh-btn.seen { animation:none; }
+  @keyframes ring { 0% { box-shadow:0 0 0 0 rgba(99,102,241,.65),0 8px 24px rgba(0,0,0,.25); } 70% { box-shadow:0 0 0 18px rgba(99,102,241,0),0 8px 24px rgba(0,0,0,.25); } 100% { box-shadow:0 0 0 0 rgba(99,102,241,0),0 8px 24px rgba(0,0,0,.25); } }
+  #shh-hint { display:none; position:fixed; bottom:88px; right:20px; width:250px; max-width:calc(100vw - 40px); background:var(--card); color:var(--text); border:1px solid var(--line); border-radius:18px 18px 4px 18px; padding:14px 40px 14px 16px; font-size:.92rem; line-height:1.45; z-index:1000; box-shadow:0 12px 32px rgba(0,0,0,.25); }
+  #shh-hint.show { display:block; animation:pop .4s ease-out; }
+  #shh-hint button { position:absolute; top:6px; right:6px; width:28px; height:28px; border:none; border-radius:50%; background:none; color:var(--muted); font-size:1.2rem; cursor:pointer; }
+  #shh-hint button:hover { background:var(--line); color:var(--text); }
+  @keyframes pop { from { opacity:0; transform:translateY(10px) scale(.95); } to { opacity:1; transform:none; } }
+  /* Shared labels and stats */
+  .sub { font-size:1.25rem; margin-bottom:14px; }
+  .stats { display:flex; flex-wrap:wrap; gap:8px 28px; margin:14px 0 18px; color:var(--muted); font-size:.95rem; }
+  .stats b { color:var(--text); font-size:1.15rem; }
+  /* Cyber Run */
+  #cr { display:block; width:100%; max-width:700px; aspect-ratio:3/1; margin:0 auto 14px; border:1px solid var(--line); border-radius:14px; touch-action:none; background:var(--bg2); cursor:pointer; }
+  #cr-lv button { font-size:.9rem; padding:10px 4px; }
+  .btn.jump { display:none; width:100%; max-width:700px; margin:0 auto 14px; text-align:center; }
+  @media (hover:none) { .btn.jump { display:block; } }
+  @media (prefers-reduced-motion:reduce) { #shh-btn { animation:none; } #shh-hint.show { animation:none; } }
+  #shh-box { display:none; position:fixed; bottom:80px; right:20px; width:330px; max-width:calc(100vw - 40px); height:430px; max-height:calc(100vh - 110px); background:var(--card); border:1px solid var(--line); border-radius:20px; flex-direction:column; overflow:hidden; z-index:1000; box-shadow:0 12px 40px rgba(0,0,0,.25); }
+  #shh-head { background:var(--bg2); padding:10px 10px 10px 14px; font-weight:700; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  #shh-close { background:none; border:none; color:var(--muted); font-size:1.5rem; line-height:1; width:34px; height:34px; border-radius:50%; cursor:pointer; flex-shrink:0; transition:background .2s,color .2s; }
+  #shh-close:hover { background:var(--line); color:var(--text); }
+  #shh-msgs { flex:1; overflow-y:auto; padding:12px; font-size:.9rem; }
+  .shh-m { margin-bottom:10px; padding:9px 13px; border-radius:14px; max-width:85%; white-space:pre-wrap; }
+  .shh-bot { background:var(--bg2); }
+  .shh-me { background:var(--accent); color:var(--accent-text); margin-left:auto; }
+  #shh-row { display:flex; border-top:1px solid var(--line); }
+  #shh-in { flex:1; border:none; border-radius:0; background:var(--bg); }
+  #shh-send { border:none; background:var(--accent); color:var(--accent-text); padding:0 18px; font-weight:600; font-family:inherit; cursor:pointer; }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .track { animation:none; } .reveal { opacity:1; transform:none; } * { transition:none !important; } }
 </style>
 </head>
-<body>
-
-<div id="cursor"></div>
-<div id="cursor-follower" aria-hidden="true"></div>
-
-<div id="canvas-container">
-  <canvas id="bg-canvas"></canvas>
-</div>
+<body class="dark">
+<div id="progress"></div>
+<div id="glow"></div>
 
 <header>
-  <a class="brand" href="#top">
-    <div class="pulse-orb"></div>
-    <span>DIPAK // ORDER IN CHAOS</span>
-  </a>
-  <nav class="nav-links">
-    <a href="#about">The Concept</a>
-    <a href="#projects">Architectures</a>
-    <a href="#lab">Cipher</a>
-    <a href="#contact">Contact</a>
-  </nav>
-  <div class="nav-status">SEC_ID: 2026.ONLINE</div>
+  <div class="bar">
+    <a class="logo" href="#top">Dipak</a>
+    <button id="menu" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+    <nav id="nav" aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#lab">Playground</a>
+      <a href="#path">Path</a>
+      <a href="#contact">Contact</a>
+      <button class="pill" id="theme" aria-pressed="false">Light / Dark</button>
+    </nav>
+  </div>
 </header>
 
 <main id="top">
-  <!-- Hero Section -->
-  <div class="hero">
-    <div class="hero-pre">BSc Computing Systems · Cybersecurity</div>
-    <h1 class="hero-title">
-      Order in the chaos of <span class="italic">complex systems.</span>
-    </h1>
-    <div class="hero-bottom">
-      <p class="hero-bio">
-        Every system brings its own entropy. I study how networks communicate, identify vulnerabilities before they fracture, and engineer resilient defenses that restore stability.
-      </p>
-      <div class="hero-actions">
-        <div class="interaction-hint" id="shock-hint">
-          <span>● Click anywhere to trigger lattice shockwave</span>
-        </div>
-        <div class="hero-meta">PARMA &middot; LONDON &middot; GLOBAL MATRIX</div>
-      </div>
+  <div class="wrap hero">
+    <span class="tag">BSc Computing Systems</span>
+    <h1>Computing student building a career in cybersecurity.</h1>
+    <p>I learn how systems work, how they break, and how to protect them.</p>
+    <div class="btns">
+      <a class="btn" href="#projects">See my work</a>
+      <a class="btn ghost" href="#contact">Get in touch</a>
     </div>
   </div>
 
-  <!-- Narrative / Philosophy Section (Inspired by Lorenzo Lottici) -->
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      <span>Python</span><span>HTML and CSS</span><span>JavaScript</span><span>Git and GitHub</span><span>Cybersecurity</span><span>Networking</span><span>Linux</span><span>Problem solving</span>
+      <span>Python</span><span>HTML and CSS</span><span>JavaScript</span><span>Git and GitHub</span><span>Cybersecurity</span><span>Networking</span><span>Linux</span><span>Problem solving</span>
+    </div>
+  </div>
+
   <section id="about">
-    <div class="sec-header">
-      <h2 class="sec-title">The Philosophy</h2>
-      <span class="sec-index">01 / CONCEPT</span>
-    </div>
-    <div class="narrative-grid">
-      <div class="narrative-card">
-        <span class="card-num">01.01 — THE ENTROPY</span>
-        <h3>The disorder in modern infrastructure</h3>
-        <p>
-          When complex networks scale without deliberate architecture, disorder multiplies. Exposed ports, unencrypted pipelines, and misconfigured permissions quietly compound into fatal blind spots.
-        </p>
-      </div>
-      <div class="narrative-card">
-        <span class="card-num">01.02 — THE HARMONY</span>
-        <h3>Engineering mathematical order</h3>
-        <p>
-          Security is not a wall; it is an active state of equilibrium. By uniting rigorous protocol audits, low-level Linux comprehension, and cryptographic verification, disorder is turned into measurable strength.
-        </p>
+    <div class="wrap reveal">
+      <p class="eyebrow">About</p>
+      <h2>A student with a builder's mindset.</h2>
+      <div class="grid">
+        <div class="card"><h3>Studying</h3><p>BSc (Hons) Computing Systems.</p></div>
+        <div class="card"><h3>Certified</h3><p>Google Cybersecurity Professional Certificate.</p></div>
+        <div class="card"><h3>Learning</h3><p>Programming, networking and security, one project at a time.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- Projects / Deployed Architectures -->
   <section id="projects">
-    <div class="sec-header">
-      <h2 class="sec-title">Architectures</h2>
-      <span class="sec-index">02 / WORK</span>
-    </div>
-    <div class="project-list">
-      <div class="project-row">
-        <div class="project-info">
-          <h4>Monochrome Floating Geometry</h4>
-          <p>An atmospheric WebGL landscape with rolling monochrome terrain, floating low-poly forms, subtle particles and pointer-reactive camera movement.</p>
-        </div>
-        <div class="project-side">
-          <div class="stack-tags">
-            <span class="tag-pill">WebGL</span>
-            <span class="tag-pill">Three.js</span>
-            <span class="tag-pill">Shaders</span>
-          </div>
-          <span class="project-link-icon">&nearr;</span>
-        </div>
-      </div>
-
-      <div class="project-row">
-        <div class="project-info">
-          <h4>Shhunya AI Assistant</h4>
-          <p>Autonomous portfolio agent deployed across Cloudflare global edge workers, interfacing with the Gemini model for dynamic security Q&amp;A.</p>
-        </div>
-        <div class="project-side">
-          <div class="stack-tags">
-            <span class="tag-pill">Edge Worker</span>
-            <span class="tag-pill">Cloudflare</span>
-            <span class="tag-pill">Gemini</span>
-          </div>
-          <span class="project-link-icon">&nearr;</span>
-        </div>
-      </div>
-
-      <div class="project-row">
-        <div class="project-info">
-          <h4>Cryptographic Rotation Engine</h4>
-          <p>An interactive cipher sandbox illustrating byte rotation mechanics, key-space vulnerabilities, and statistical cryptanalysis.</p>
-        </div>
-        <div class="project-side">
-          <div class="stack-tags">
-            <span class="tag-pill">Cryptography</span>
-            <span class="tag-pill">Security</span>
-          </div>
-          <span class="project-link-icon">&nearr;</span>
-        </div>
+    <div class="wrap reveal">
+      <p class="eyebrow">Projects</p>
+      <h2>Things I have built.</h2>
+      <div class="grid">
+        <div class="card"><h3>This Website</h3><p>My portfolio, built with HTML, CSS and JavaScript and hosted free on GitHub Pages.</p><span class="meta">HTML &middot; CSS &middot; JavaScript</span></div>
+        <div class="card"><h3>Shhunya AI Chatbot</h3><p>An AI assistant on this site, powered by Google Gemini through a Cloudflare Worker.</p><span class="meta">JavaScript &middot; Cloudflare Workers &middot; Gemini</span></div>
+        <div class="card"><h3>Playground</h3><p>Two things to play with on this page: a Caesar cipher and Cyber Run, an endless cybersecurity runner with levels and a protective shield.</p><a class="meta" href="#lab" style="color:inherit">Try them below <span class="arrow" style="margin:0">&rarr;</span></a></div>
+        <div class="card"><h3>Next project</h3><p>Something new is in the works. Check back soon.</p><span class="meta">Coming soon</span></div>
       </div>
     </div>
   </section>
 
-  <!-- Cipher Lab -->
   <section id="lab">
-    <div class="sec-header">
-      <h2 class="sec-title">Cryptographic Sandbox</h2>
-      <span class="sec-index">03 / PLAYGROUND</span>
-    </div>
-    <div class="cipher-panel">
-      <label for="cipher-input">PAYLOAD TO ENCRYPT / DECRYPT</label>
-      <textarea id="cipher-input" class="input-box">Order will always emerge from chaos</textarea>
-      
-      <div class="cipher-controls">
-        <div class="range-wrapper">
-          <label>ROTATION OFFSET: <span id="shift-val" style="color:var(--cyan)">3</span></label>
-          <input type="range" id="shift-slider" min="1" max="25" value="3">
+    <div class="wrap reveal">
+      <p class="eyebrow">Playground</p>
+      <h2>Two things to play with.</h2>
+      <h3 class="sub">Caesar cipher</h3>
+      <div class="lab">
+        <label for="c-in">Your text</label>
+        <textarea id="c-in">Attack at dawn</textarea>
+        <div class="ctl">
+          <div><label for="c-shift">Shift: <span id="c-val">3</span></label><input type="range" id="c-shift" min="1" max="25" value="3"></div>
+          <div><label id="c-mode-l">Mode</label><div class="seg" role="group" aria-labelledby="c-mode-l"><button id="c-enc" aria-pressed="true">Encrypt</button><button id="c-dec" aria-pressed="false">Decrypt</button></div></div>
         </div>
-        <div>
-          <label>OPERATION MODE</label>
-          <div class="mode-toggle">
-            <button id="btn-enc" aria-pressed="true">ENCRYPT</button>
-            <button id="btn-dec" aria-pressed="false">DECRYPT</button>
-          </div>
-        </div>
+        <label>Result</label>
+        <div id="out" aria-live="polite"></div>
+        <p class="note">Only 25 shifts exist, so anyone can crack this in seconds. Never use it to protect real data.</p>
       </div>
 
-      <label>RESULTING STREAM</label>
-      <div class="output-wrap">
-        <div id="cipher-output" class="output-field" aria-live="polite"></div>
-        <button class="copy-btn" id="copy-btn" onclick="copyCipher()">COPY</button>
+      <h3 class="sub" style="margin-top:56px">Cyber Run</h3>
+      <div class="lab">
+        <div class="seg" id="cr-lv" role="group" aria-label="Choose a level">
+          <button type="button" aria-pressed="true">Rookie</button><button type="button" aria-pressed="false">Analyst</button><button type="button" aria-pressed="false">Hacker</button><button type="button" aria-pressed="false">Elite</button>
+        </div>
+        <p class="note" id="cr-info" style="margin:8px 0 0">Slow start and wide gaps. A good place to learn the jumps.</p>
+        <div class="stats" aria-live="off">
+          <span>Score <b id="cr-s">0</b></span>
+          <span>Best <b id="cr-b">0</b></span>
+          <span>Level <b id="cr-l">Rookie</b></span>
+          <span>Shield <b id="cr-sh">Off</b></span>
+        </div>
+        <canvas id="cr" width="720" height="240" role="img" aria-label="Cyber Run game: jump over viruses and firewalls"></canvas>
+        <button class="btn jump" id="cr-jump" type="button">Jump</button>
+        <div style="text-align:center"><button class="btn" id="cr-start" type="button">Play</button></div>
+        <p class="note" style="text-align:center">Jump over viruses, firewalls and ransomware locks. Grab the cyan shield for 5 seconds of protection: anything you hit is destroyed for bonus points. Space, W or the up arrow to jump, P to pause. On a phone, tap the game or the Jump button. Pick a level, then run for as long as you can.</p>
       </div>
     </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact">
-    <div class="sec-header">
-      <h2 class="sec-title">Connect</h2>
-      <span class="sec-index">04 / DIALOGUE</span>
+  <section id="path">
+    <div class="wrap reveal">
+      <p class="eyebrow">Path</p>
+      <h2>Where I'm heading.</h2>
+      <ol class="tl">
+        <li><b>BSc (Hons) Computing Systems</b><span>In progress</span></li>
+        <li><b>Google Cybersecurity Professional Certificate</b><span>Completed</span></li>
+        <li><b>Portfolio and Shhunya AI launched</b><span>2026</span></li>
+      </ol>
     </div>
-    <div class="contact-grid">
-      <div class="contact-lead">
-        <h3>Let’s build resilient architectures together.</h3>
-        <p>Whether you're looking to discuss network penetration challenges, computing infrastructure, or AI implementations — my transmission line is open.</p>
-        <div class="contact-methods">
-          <span class="contact-item">DIRECT · Available for opportunities</span>
-          <span class="contact-item">STUDIES · BSc Computing Systems</span>
-        </div>
-      </div>
-      <form class="contact-form" id="contact-form">
-        <input class="form-input" type="text" name="name" placeholder="Your Name" required>
-        <input class="form-input" type="email" name="email" placeholder="Your Email Address" required>
-        <textarea class="form-input" name="message" placeholder="Project or Message Details" style="min-height:120px" required></textarea>
-        <input type="text" name="_gotcha" style="display:none" tabindex="-1">
-        <button class="submit-btn" type="submit">Send Transmission &rarr;</button>
-        <div id="form-status" style="font-family:var(--mono);font-size:.85rem;color:var(--muted)"></div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap reveal">
+      <p class="eyebrow">Contact</p>
+      <h2>Let's talk. Send me a message.</h2>
+      <form id="cform">
+        <input type="text" name="name" placeholder="Your name" aria-label="Your name" required>
+        <input type="email" name="email" placeholder="Your email" aria-label="Your email" required>
+        <textarea name="message" placeholder="Your message" aria-label="Your message" required></textarea>
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+        <button class="btn" type="submit">Send message</button>
+        <div id="status" role="status"></div>
       </form>
     </div>
   </section>
 </main>
 
-<footer>
-  <div>&copy; 2026 Dipak. Inspired by the editorial elegance of Lorenzo Lottici.</div>
-  <div>A MONOCHROME 3D EXPERIENCE · THREE.JS</div>
-</footer>
+<footer>&copy; 2026 Dipak. Built with GitHub Pages.</footer>
 
-<!-- Shhunya AI Assistant Widget -->
-<button id="chat-trigger" aria-expanded="false" aria-controls="chat-window">
-  <span style="width:7px;height:7px;background:var(--cyan);border-radius:50%;box-shadow:0 0 8px var(--cyan)"></span>
-  Ask Shhunya AI
-</button>
-<div id="chat-window" role="dialog" aria-label="Shhunya chat assistant">
-  <div id="chat-header">
-    <span>SHHUNYA // INTELLIGENCE</span>
-    <button id="chat-close" aria-label="Close chat">&times;</button>
-  </div>
-  <div id="chat-messages" aria-live="polite"></div>
-  <div id="chat-form">
-    <input id="chat-input" type="text" placeholder="Inquire about skills, studies, or projects..." aria-label="Question">
-    <button id="chat-send">SEND</button>
+<div id="shh-hint" role="status">Hi! I'm Shhunya, Dipak's AI. Ask me anything about him.<button id="shh-hint-x" aria-label="Dismiss">&times;</button></div>
+<button id="shh-btn" aria-expanded="false" aria-controls="shh-box">Ask Shhunya AI</button>
+<div id="shh-box" role="dialog" aria-label="Shhunya chat">
+  <div id="shh-head"><span>Shhunya, Dipak's AI assistant</span><button id="shh-close" aria-label="Close chat">&times;</button></div>
+  <div id="shh-msgs" aria-live="polite"></div>
+  <div id="shh-row">
+    <input id="shh-in" type="text" placeholder="Ask me anything..." aria-label="Your question">
+    <button id="shh-send">Send</button>
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-/* Custom editorial cursor: follows the pointer and changes on interactive elements. */
-var cursor = document.getElementById("cursor");
-var follower = document.getElementById("cursor-follower");
-var mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-var followerX = mouseX, followerY = mouseY;
-if (cursor && follower && window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
-  window.addEventListener("pointermove", function(e) {
-    mouseX = e.clientX; mouseY = e.clientY;
-    cursor.style.transform = "translate3d(" + mouseX + "px," + mouseY + "px,0)";
-  }, {passive:true});
+  var $ = function (id) { return document.getElementById(id); };
 
-  document.addEventListener("pointerover", function(e) {
-    var target = e.target.closest("a,button,input,textarea,[role='button'],.project-row,.narrative-card");
-    if (target) {
-      follower.classList.add("hovered"); cursor.classList.add("is-hover");
-      follower.setAttribute("data-label", target.matches("a,button,[role='button']") ? "OPEN" : "EDIT");
-    }
+  // Glow that follows the mouse
+  var glow = $("glow");
+  window.addEventListener("mousemove", function (e) {
+    glow.style.transform = "translate(" + e.clientX + "px," + e.clientY + "px)";
   });
-  document.addEventListener("pointerout", function(e) {
-    if (e.target.closest("a,button,input,textarea,[role='button'],.project-row,.narrative-card")) {
-      follower.classList.remove("hovered"); cursor.classList.remove("is-hover");
-      follower.setAttribute("data-label", "");
-    }
-  });
-  (function renderCursor() {
-    followerX += (mouseX - followerX) * 0.19;
-    followerY += (mouseY - followerY) * 0.19;
-    follower.style.transform = "translate3d(" + followerX + "px," + followerY + "px,0) translate(-50%,-50%)";
-    requestAnimationFrame(renderCursor);
-  })();
-}
 
-/* Monochrome 3D world: sculptural landscape, floating geometry and pointer response */
-(function() {
-  if (!window.THREE) return;
-  var canvas = document.getElementById("bg-canvas");
-  if (!canvas) return;
-  var renderer;
-  try {
-    renderer = new THREE.WebGLRenderer({canvas:canvas, alpha:true, antialias:true, powerPreference:"high-performance"});
-  } catch(e) { return; }
-  var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var mobile = window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
-  renderer.setPixelRatio(Math.min(mobile ? 1.35 : 1.85, window.devicePixelRatio || 1));
-  renderer.setClearColor(0x000000, 0);
+  // Scroll reveal
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("show"); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll(".reveal").forEach(function (el) { obs.observe(el); });
 
-  var scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x090909, 0.022);
-  var camera = new THREE.PerspectiveCamera(43, 1, 0.1, 120);
-  camera.position.set(0, 1.15, 9.5);
-  var world = new THREE.Group(); scene.add(world);
-
-  scene.add(new THREE.AmbientLight(0xd8d8d8, 0.95));
-  var key = new THREE.DirectionalLight(0xffffff, 2.8);
-  key.position.set(-3, 7, 5); scene.add(key);
-  var rim = new THREE.PointLight(0xd0d0d0, 3.8, 30);
-  rim.position.set(4, 3, -5); scene.add(rim);
-
-  // Layered, rolling monochrome terrain.
-  function makeTerrain(width, depth, segments, offset, material) {
-    var geo = new THREE.PlaneGeometry(width, depth, segments, segments);
-    var pos = geo.attributes.position;
-    for (var i=0; i<pos.count; i++) {
-      var x=pos.getX(i), y=pos.getY(i);
-      var ridge = Math.sin(x*0.115 + offset)*0.42 + Math.sin(y*0.19 + offset*1.7)*0.23;
-      var folds = Math.sin(x*0.31 + y*0.13 + offset)*0.12;
-      var basin = Math.cos(x*0.075 - y*0.12)*0.22;
-      pos.setZ(i, ridge + folds + basin);
-    }
-    geo.computeVertexNormals();
-    var mesh = new THREE.Mesh(geo, material);
-    mesh.rotation.x = -Math.PI/2;
-    mesh.position.y = -1.25 + offset*0.12;
-    mesh.position.z = -offset*2.4;
-    world.add(mesh);
-    return mesh;
+  // Theme (remembers choice) and mobile menu
+  var nav = $("nav"), menu = $("menu"), themeBtn = $("theme");
+  function setDark(on) {
+    document.body.classList.toggle("dark", on);
+    themeBtn.setAttribute("aria-pressed", on);
+    if (typeof draw === "function") { draw(); }
+    try { localStorage.setItem("dark", on ? "1" : "0"); } catch (e) {}
   }
-  var terrainMats = [
-    new THREE.MeshStandardMaterial({color:0x292929, roughness:0.96, metalness:0.05, flatShading:true}),
-    new THREE.MeshStandardMaterial({color:0x171717, roughness:1, metalness:0.02, flatShading:true}),
-    new THREE.MeshStandardMaterial({color:0x101010, roughness:1, metalness:0, flatShading:true})
+  var saved = null;
+  try { saved = localStorage.getItem("dark"); } catch (e) {}
+  setDark(saved === null ? true : saved === "1");
+  themeBtn.onclick = function () { setDark(!document.body.classList.contains("dark")); };
+  menu.onclick = function () { var o = nav.classList.toggle("open"); menu.setAttribute("aria-expanded", o); };
+  nav.querySelectorAll("a").forEach(function (a) { a.onclick = function () { nav.classList.remove("open"); menu.setAttribute("aria-expanded", "false"); }; });
+
+  // Scroll progress bar and active menu link
+  var links = nav.querySelectorAll("a"), secs = document.querySelectorAll("section");
+  window.addEventListener("scroll", function () {
+    var h = document.documentElement;
+    $("progress").style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + "%";
+    var cur = "";
+    secs.forEach(function (s) { if (s.getBoundingClientRect().top < 140) { cur = s.id; } });
+    links.forEach(function (a) { a.classList.toggle("on", a.getAttribute("href") === "#" + cur); });
+  }, { passive: true });
+
+  // Cipher lab
+  var mode = "enc";
+  function caesar(txt, k) {
+    return txt.replace(/[a-z]/gi, function (c) {
+      var b = c <= "Z" ? 65 : 97;
+      return String.fromCharCode((c.charCodeAt(0) - b + k + 26) % 26 + b);
+    });
+  }
+  function runCipher() {
+    var k = parseInt($("c-shift").value, 10);
+    $("c-val").textContent = k;
+    $("out").textContent = caesar($("c-in").value, mode === "enc" ? k : -k);
+  }
+  function setMode(m) {
+    mode = m;
+    $("c-enc").setAttribute("aria-pressed", m === "enc");
+    $("c-dec").setAttribute("aria-pressed", m === "dec");
+    runCipher();
+  }
+  $("c-enc").onclick = function () { setMode("enc"); };
+  $("c-dec").onclick = function () { setMode("dec"); };
+  $("c-in").oninput = runCipher;
+  $("c-shift").oninput = runCipher;
+  runCipher();
+
+  // Cyber Run: an endless cybersecurity runner
+  var cv = $("cr"), g = cv.getContext("2d"), W = 720, H = 240, GY = 190, PX = 80, PW = 28, PH = 34;
+  var dpr = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = W * dpr; cv.height = H * dpr; g.scale(dpr, dpr);
+  var SHIELD = 5, JUMP = 800, GRAV = 2600, MAXV = 700;
+  var LEVELS = [
+    { name: "Rookie", info: "Slow start and wide gaps. A good place to learn the jumps.", v0: 280, acc: 6, gap: [1.35, 0.9], shield: 12 },
+    { name: "Analyst", info: "Faster threats and tighter gaps.", v0: 340, acc: 8, gap: [1.2, 0.8], shield: 15 },
+    { name: "Hacker", info: "Quick and relentless. Shields are rarer.", v0: 400, acc: 10, gap: [1.05, 0.7], shield: 18 },
+    { name: "Elite", info: "Top speed from the start. Good luck.", v0: 460, acc: 12, gap: [0.95, 0.55], shield: 20 }
   ];
-  var terrains = [
-    makeTerrain(58, 48, mobile?48:76, 0, terrainMats[0]),
-    makeTerrain(64, 54, mobile?42:68, 1.4, terrainMats[1]),
-    makeTerrain(70, 60, mobile?36:60, 2.8, terrainMats[2])
+  var lv = 0, bests = [0, 0, 0, 0];
+  try { var sb = JSON.parse(localStorage.getItem("cyberRunBest")); if (sb && sb.length === 4) { bests = sb.map(function (n) { return +n || 0; }); } } catch (e) {}
+  try { var sl = parseInt(localStorage.getItem("cyberRunLevel"), 10); if (sl >= 0 && sl < 4) { lv = sl; } } catch (e) {}
+  var p, obs, items, parts, speed, score, shieldT, shieldIn, gapLeft, scroll, clock = 0;
+  var running = false, paused = false, over = false, newBest = false, raf = 0, last = 0, inView = true;
+  function css(v) { return getComputedStyle(document.body).getPropertyValue(v).trim(); }
+  function stats() {
+    $("cr-s").textContent = Math.floor(score);
+    $("cr-b").textContent = Math.max(bests[lv], Math.floor(score));
+    $("cr-l").textContent = LEVELS[lv].name;
+    $("cr-sh").textContent = shieldT > 0 ? shieldT.toFixed(1) + "s" : "Off";
+  }
+  function reset() {
+    var L = LEVELS[lv];
+    p = { y: GY, vy: 0 }; obs = []; items = []; parts = [];
+    speed = L.v0; score = 0; shieldT = 0; scroll = 0; over = false; paused = false; newBest = false;
+    gapLeft = 520; shieldIn = L.shield * 0.6;
+    stats();
+  }
+  function makeObs() {
+    var r = Math.random();
+    if (r < 0.38) { return { t: "virus", w: 32, h: 32 }; }
+    if (r < 0.66) { return { t: "wall", w: 24, h: 56 + Math.floor(Math.random() * 14) };}
+    if (r < 0.84) { return { t: "bots", w: 72, h: 32 }; }
+    return { t: "lock", w: 46, h: 46 };
+  }
+  function burst(x, y, c) {
+    for (var i = 0; i < 12; i++) {
+      var a = Math.random() * 6.28, s = 80 + Math.random() * 180;
+      parts.push({ x: x, y: y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 60, life: 0.5, c: c });
+    }
+  }
+  function update(dt) {
+    var L = LEVELS[lv];
+    clock += dt;
+    speed = Math.min(MAXV, speed + L.acc * dt);
+    scroll += speed * dt;
+    score += speed * dt * 0.02;
+    p.vy += GRAV * dt; p.y += p.vy * dt;
+    if (p.y >= GY) { p.y = GY; p.vy = 0; }
+    if (shieldT > 0) { shieldT = Math.max(0, shieldT - dt); }
+    gapLeft -= speed * dt; shieldIn -= dt;
+    if (gapLeft <= 0) {
+      var o = makeObs(); o.x = W + 20; obs.push(o);
+      if (shieldIn <= 0 && !items.length && shieldT <= 0) {
+        items.push({ x: o.x + o.w / 2, y: GY - 100 });
+        shieldIn = L.shield + Math.random() * 6;
+      }
+      gapLeft = speed * (L.gap[0] + Math.random() * L.gap[1]) + o.w;
+    }
+    var pr = { x: PX + 4, y: p.y - PH + 3, w: PW - 8, h: PH - 3 };
+    for (var i = obs.length - 1; i >= 0; i--) {
+      var b = obs[i];
+      b.x -= speed * dt;
+      if (b.x + b.w < -20) { obs.splice(i, 1); continue; }
+      if (pr.x < b.x + b.w - 4 && pr.x + pr.w > b.x + 4 && pr.y + pr.h > GY - b.h + 4) {
+        if (shieldT > 0) { burst(b.x + b.w / 2, GY - b.h / 2, "#22d3ee"); obs.splice(i, 1); score += 10; }
+        else { end(); return; }
+      }
+    }
+    for (var j = items.length - 1; j >= 0; j--) {
+      var it = items[j];
+      it.x -= speed * dt;
+      if (it.x < -30) { items.splice(j, 1); continue; }
+      var nx = Math.max(pr.x, Math.min(it.x, pr.x + pr.w)), ny = Math.max(pr.y, Math.min(it.y, pr.y + pr.h));
+      if ((nx - it.x) * (nx - it.x) + (ny - it.y) * (ny - it.y) < 18 * 18) {
+        shieldT = SHIELD; burst(it.x, it.y, "#22d3ee"); items.splice(j, 1);
+      }
+    }
+    for (var k = parts.length - 1; k >= 0; k--) {
+      var q = parts[k];
+      q.x += q.vx * dt; q.y += q.vy * dt; q.vy += 900 * dt; q.life -= dt;
+      if (q.life <= 0) { parts.splice(k, 1); }
+    }
+  }
+  function drawVirus(x, y, r, spin) {
+    g.save(); g.translate(x, y); g.rotate(spin);
+    g.strokeStyle = "#16a34a"; g.lineWidth = 3;
+    for (var a = 0; a < 8; a++) {
+      g.beginPath(); g.moveTo(Math.cos(a * 0.785) * r, Math.sin(a * 0.785) * r);
+      g.lineTo(Math.cos(a * 0.785) * (r + 6), Math.sin(a * 0.785) * (r + 6)); g.stroke();
+    }
+    g.fillStyle = "#22c55e"; g.beginPath(); g.arc(0, 0, r, 0, 7); g.fill();
+    g.restore();
+    g.fillStyle = "#052e16"; g.fillRect(x - 6, y - 4, 4, 5); g.fillRect(x + 2, y - 4, 4, 5);
+  }
+  function drawWall(o) {
+    var x = o.x, y = GY - o.h;
+    g.fillStyle = "#ef4444"; g.fillRect(x, y, o.w, o.h);
+    g.strokeStyle = "#b91c1c"; g.lineWidth = 1.5;
+    for (var r = 1; r * 12 < o.h; r++) { g.beginPath(); g.moveTo(x, y + r * 12); g.lineTo(x + o.w, y + r * 12); g.stroke(); }
+    for (var r2 = 0; r2 * 12 < o.h; r2++) {
+      var bx = x + (r2 % 2 ? o.w * 0.3 : o.w * 0.65);
+      g.beginPath(); g.moveTo(bx, y + r2 * 12); g.lineTo(bx, Math.min(y + r2 * 12 + 12, GY)); g.stroke();
+    }
+    g.fillStyle = "#f59e0b";
+    for (var f = 0; f < 3; f++) {
+      var fx = x + 2 + f * (o.w - 4) / 3, fl = 5 + ((Math.floor(clock * 10) + f) % 3) * 3;
+      g.beginPath(); g.moveTo(fx, y); g.lineTo(fx + (o.w - 4) / 6, y - fl); g.lineTo(fx + (o.w - 4) / 3, y); g.fill();
+    }
+  }
+  function drawLock(o) {
+    var x = o.x, y = GY - o.h;
+    g.fillStyle = "#f59e0b"; g.fillRect(x, y, o.w, o.h);
+    g.strokeStyle = "#b45309"; g.lineWidth = 3; g.strokeRect(x + 1.5, y + 1.5, o.w - 3, o.h - 3);
+    g.strokeStyle = "#451a03"; g.lineWidth = 4; g.beginPath(); g.arc(x + o.w / 2, y + 18, 8, 3.14, 0); g.stroke();
+    g.fillStyle = "#451a03"; g.fillRect(x + o.w / 2 - 11, y + 18, 22, 16);
+  }
+  function drawShieldIcon(x, y, s) {
+    g.beginPath(); g.moveTo(x, y - 12 * s); g.lineTo(x + 10 * s, y - 8 * s);
+    g.quadraticCurveTo(x + 10 * s, y + 6 * s, x, y + 13 * s);
+    g.quadraticCurveTo(x - 10 * s, y + 6 * s, x - 10 * s, y - 8 * s); g.closePath();
+  }
+  function draw() {
+    if (!p) { return; }
+    var bg = css("--bg2"), line = css("--line"), muted = css("--muted");
+    g.fillStyle = bg; g.fillRect(0, 0, W, H);
+    g.fillStyle = line;
+    for (var i = 0; i < 18; i++) {
+      var bx = (((i * 97 - scroll * 0.15) % (W + 40)) + (W + 40)) % (W + 40) - 20, by = 20 + (i * 53) % 110;
+      g.fillRect(bx, by, 14, 2); g.fillRect(bx + 22, by + 6, 5, 2);
+    }
+    g.strokeStyle = muted; g.lineWidth = 2; g.beginPath(); g.moveTo(0, GY + 0.5); g.lineTo(W, GY + 0.5); g.stroke();
+    g.fillStyle = line;
+    for (var k = 0; k < 14; k++) {
+      var gx = (((k * 60 - scroll) % (W + 60)) + (W + 60)) % (W + 60);
+      g.fillRect(gx, GY + 12 + (k % 3) * 9, 18, 3);
+    }
+    items.forEach(function (it) {
+      var y = it.y + Math.sin(clock * 4) * 3;
+      g.fillStyle = "rgba(34,211,238,.18)"; g.beginPath(); g.arc(it.x, y, 20, 0, 7); g.fill();
+      drawShieldIcon(it.x, y, 1); g.fillStyle = "#22d3ee"; g.fill();
+    });
+    obs.forEach(function (o) {
+      var spin = scroll / 40;
+      if (o.t === "virus") { drawVirus(o.x + 16, GY - 16, 10, spin); }
+      else if (o.t === "bots") { drawVirus(o.x + 16, GY - 16, 10, spin); drawVirus(o.x + 56, GY - 16, 10, -spin); }
+      else if (o.t === "wall") { drawWall(o); }
+      else { drawLock(o); }
+    });
+    parts.forEach(function (q) {
+      g.globalAlpha = Math.max(0, q.life * 2); g.fillStyle = q.c; g.fillRect(q.x, q.y, 4, 4);
+    });
+    g.globalAlpha = 1;
+    var px = PX, py = p.y - PH, air = p.y < GY, step = Math.floor(scroll / 22) % 2;
+    g.fillStyle = "#4f46e5";
+    if (air) { g.fillRect(px + 3, py + PH - 10, 8, 10); g.fillRect(px + PW - 11, py + PH - 10, 8, 10); }
+    else { g.fillRect(px + 3, py + PH - (step ? 10 : 6), 8, step ? 10 : 6); g.fillRect(px + PW - 11, py + PH - (step ? 6 : 10), 8, step ? 6 : 10); }
+    g.fillStyle = "#6366f1"; g.fillRect(px, py, PW, PH - 8);
+    g.fillStyle = "#a5b4fc"; g.fillRect(px + PW - 15, py + 7, 13, 8);
+    if (shieldT > 0) {
+      var a = shieldT < 1.2 ? (Math.floor(shieldT * 8) % 2 ? 0.25 : 0.8) : 0.8;
+      g.fillStyle = "rgba(34,211,238," + (a * 0.18) + ")"; g.strokeStyle = "rgba(34,211,238," + a + ")"; g.lineWidth = 3;
+      g.beginPath(); g.arc(px + PW / 2, py + PH / 2, 32, 0, 7); g.fill(); g.stroke();
+    }
+    if (!running || paused) {
+      g.fillStyle = "rgba(0,0,0,.62)"; g.fillRect(0, 0, W, H);
+      g.fillStyle = "#fff"; g.textAlign = "center";
+      g.font = "700 30px system-ui,sans-serif";
+      g.fillText(over ? "System breached" : (paused ? "Paused" : "Press Play"), W / 2, H / 2 - 6);
+      g.font = "500 16px system-ui,sans-serif";
+      if (over) { g.fillText("Score " + Math.floor(score) + (newBest ? "  |  New best!" : ""), W / 2, H / 2 + 24); }
+      else if (paused) { g.fillText("Press P, Space or tap to continue", W / 2, H / 2 + 24); }
+      else { g.fillText("Level: " + LEVELS[lv].name + "  |  Jump with Space, W, Up arrow or a tap", W / 2, H / 2 + 24); }
+    }
+  }
+  function end() {
+    running = false; over = true; cancelAnimationFrame(raf);
+    var s = Math.floor(score);
+    if (s > bests[lv]) {
+      newBest = s > 0; bests[lv] = s;
+      try { localStorage.setItem("cyberRunBest", JSON.stringify(bests)); } catch (e) {}
+    }
+    stats(); draw(); $("cr-start").textContent = "Play again";
+  }
+  function frame(ts) {
+    if (!running || paused) { return; }
+    var dt = Math.min(0.05, (ts - last) / 1000); last = ts;
+    update(dt);
+    if (!running) { return; }
+    stats(); draw();
+    raf = requestAnimationFrame(frame);
+  }
+  function togglePause() {
+    if (!running) { return; }
+    if (paused && !inView) { return; }
+    paused = !paused;
+    if (paused) { cancelAnimationFrame(raf); draw(); }
+    else { last = performance.now(); raf = requestAnimationFrame(frame); }
+  }
+  function jump() {
+    if (!running) { return; }
+    if (paused) { togglePause(); return; }
+    if (p.y >= GY) { p.vy = -JUMP; }
+  }
+  function setLevel(i) {
+    cancelAnimationFrame(raf); running = false; lv = i;
+    document.querySelectorAll("#cr-lv button").forEach(function (b, j) { b.setAttribute("aria-pressed", j === i ? "true" : "false"); });
+    $("cr-info").textContent = LEVELS[i].info;
+    $("cr-start").textContent = "Play";
+    try { localStorage.setItem("cyberRunLevel", i); } catch (e) {}
+    reset(); draw();
+  }
+  document.querySelectorAll("#cr-lv button").forEach(function (b, j) { b.onclick = function () { setLevel(j); }; });
+  $("cr-start").onclick = function () {
+    cancelAnimationFrame(raf); reset(); running = true; this.textContent = "Restart"; this.blur();
+    last = performance.now(); raf = requestAnimationFrame(frame);
+  };
+  document.addEventListener("keydown", function (e) {
+    if (!running || /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) { return; }
+    var k = e.key.toLowerCase();
+    if (k === "p" || k === "escape") { togglePause(); return; }
+    if (paused || !inView) { return; }
+    if (k === " " || k === "arrowup" || k === "w") { e.preventDefault(); jump(); }
+  });
+  cv.addEventListener("pointerdown", function (e) { if (running) { e.preventDefault(); jump(); } });
+  $("cr-jump").addEventListener("pointerdown", function (e) { e.preventDefault(); jump(); });
+  document.addEventListener("visibilitychange", function () { if (document.hidden && running && !paused) { togglePause(); } });
+  new IntersectionObserver(function (en) {
+    inView = en[0].isIntersecting;
+    if (!inView && running && !paused) { togglePause(); }
+  }).observe(cv);
+  setLevel(lv);
+
+  // Contact form (Formspree)
+  var form = $("cform"), statusEl = $("status");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    statusEl.textContent = "Sending...";
+    fetch("https://formspree.io/f/xbggeqvz", {
+      method: "POST",
+      body: new FormData(form),
+      headers: { "Accept": "application/json" }
+    }).then(function (r) {
+      if (r.ok) { statusEl.textContent = "Thank you! Your message was sent."; form.reset(); }
+      else { statusEl.textContent = "Message not sent. Check your details and try again."; }
+    }).catch(function () { statusEl.textContent = "No connection. Check your internet and try again."; });
+  });
+
+  // Shhunya AI chatbot
+  var WORKER_URL = "https://shhunya-ai.dipak838287.workers.dev";
+  var chatHistory = [];
+  var busy = false;
+
+  var answers = [
+    { words: ["hi", "hello", "hey"], reply: "Hello! I'm Shhunya, Dipak's assistant. Ask me about his studies, skills or projects." },
+    { words: ["skill", "know", "language"], reply: "Dipak works with Python, HTML, JavaScript, Git and GitHub, and is learning cybersecurity." },
+    { words: ["certificate", "certification", "qualification"], reply: "Dipak holds the Google Cybersecurity Professional Certificate." },
+    { words: ["study", "university", "degree", "course"], reply: "He studies BSc (Hons) Computing Systems." },
+    { words: ["project", "work", "portfolio"], reply: "See the Projects section on this page." },
+    { words: ["contact", "email", "hire", "message"], reply: "Please use the contact form at the bottom of this page." }
   ];
+  var fallback = "Sorry, I can't reach my AI brain right now. Try asking about Dipak's skills, studies or projects, or use the contact form.";
 
-  // Floating low-poly monolith, the focal object in the landscape.
-  var sculpture = new THREE.Group(); world.add(sculpture);
-  var stoneGeo = new THREE.IcosahedronGeometry(1.58, 1);
-  var stone = new THREE.Mesh(stoneGeo, new THREE.MeshStandardMaterial({
-    color:0x292929, roughness:0.32, metalness:0.28, flatShading:true
-  }));
-  sculpture.add(stone);
-  var edges = new THREE.LineSegments(new THREE.EdgesGeometry(stoneGeo),
-    new THREE.LineBasicMaterial({color:0xe0e0e0, transparent:true, opacity:0.72}));
-  stone.add(edges);
-  sculpture.position.set(1.45, 1.05, 0.15);
-  sculpture.scale.setScalar(1.16);
+  var box = $("shh-box"), msgs = $("shh-msgs"), input = $("shh-in"), chatBtn = $("shh-btn");
 
-  // Smaller distant fragments add scale and depth.
-  var fragments=[];
-  for (var f=0; f<(mobile?9:18); f++) {
-    var g = new THREE.IcosahedronGeometry(0.16 + Math.random()*0.34, 0);
-    var m = new THREE.Mesh(g, new THREE.MeshStandardMaterial({color:f%2?0x555555:0x1c1c1c, roughness:0.7, flatShading:true}));
-    m.position.set((Math.random()-.5)*10, -0.2+Math.random()*3, -2-Math.random()*9);
-    m.rotation.set(Math.random()*3,Math.random()*3,Math.random()*3);
-    world.add(m); fragments.push({mesh:m, phase:Math.random()*6.28, speed:0.25+Math.random()*0.35});
+  function addMsg(text, who) {
+    var d = document.createElement("div");
+    d.className = "shh-m " + who;
+    d.textContent = text;
+    msgs.appendChild(d);
+    msgs.scrollTop = msgs.scrollHeight;
+    return d;
   }
 
-  // Sparse white dust, deliberately restrained.
-  var count=mobile?220:620, pts=new Float32Array(count*3);
-  for(var j=0;j<count;j++) {
-    pts[j*3]=(Math.random()-.5)*24;
-    pts[j*3+1]=(Math.random()-.5)*12;
-    pts[j*3+2]=-8+Math.random()*15;
-  }
-  var dustGeo=new THREE.BufferGeometry(); dustGeo.setAttribute('position',new THREE.BufferAttribute(pts,3));
-  var dust=new THREE.Points(dustGeo,new THREE.PointsMaterial({color:0xf0f0f0,size:mobile?0.026:0.034,transparent:true,opacity:0.58}));
-  world.add(dust);
-
-  var px=0,py=0,sx=0,sy=0,scroll=0,scrollNow=0,shock=0;
-  window.addEventListener('pointermove',function(e){px=e.clientX/window.innerWidth*2-1;py=e.clientY/window.innerHeight*2-1;},{passive:true});
-  window.addEventListener('scroll',function(){var max=document.documentElement.scrollHeight-window.innerHeight;scroll=max>0?window.scrollY/max:0;},{passive:true});
-  window.addEventListener('pointerdown',function(e){if(e.target&&e.target.closest&&e.target.closest('a,button,input,textarea'))return;shock=1;},{passive:true});
-  function resize(){var w=window.innerWidth,h=window.innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
-  window.addEventListener('resize',resize,{passive:true}); resize();
-  var clock=new THREE.Clock(), frameId;
-  function render(){
-    frameId=requestAnimationFrame(render);
-    var t=reducedMotion?0:clock.getElapsedTime();
-    sx+=(px-sx)*0.035; sy+=(py-sy)*0.035; scrollNow+=(scroll-scrollNow)*0.025; shock*=0.94;
-    sculpture.position.y=1.05+(reducedMotion?0:Math.sin(t*0.72)*0.2)+shock*0.28;
-    sculpture.rotation.y=t*0.19+sx*0.2+scrollNow*1.05;
-    sculpture.rotation.x=sy*0.15+Math.sin(t*0.42)*0.07;
-    stone.rotation.z=t*0.065;
-    fragments.forEach(function(o){o.mesh.position.y+=reducedMotion?0:Math.sin(t*o.speed+o.phase)*0.0035;o.mesh.rotation.y+=reducedMotion?0:0.0028;});
-    terrains.forEach(function(terrain,i){terrain.position.z=-i*3.4+scrollNow*1.6;});
-    dust.rotation.y=t*0.006+sx*0.025;
-    camera.position.x+=(sx*0.42-camera.position.x)*0.025;
-    camera.position.y+=(1.15-sy*0.2-scrollNow*0.55-camera.position.y)*0.025;
-    camera.position.z+=(8.2-scrollNow*1.55-camera.position.z)*0.025;
-    camera.lookAt(0,-0.45-scrollNow*0.45,0);
-    renderer.render(scene,camera);
-  }
-  render();
-  document.addEventListener('visibilitychange',function(){if(document.hidden&&frameId){cancelAnimationFrame(frameId);frameId=0;}else if(!document.hidden&&!frameId){render();}});
-})();
-
-
-/* Cryptographic Lab: Caesar Cipher */
-var mode = "enc";
-var inputEl = document.getElementById("cipher-input");
-var shiftSlider = document.getElementById("shift-slider");
-var shiftVal = document.getElementById("shift-val");
-var outputEl = document.getElementById("cipher-output");
-var btnEnc = document.getElementById("btn-enc");
-var btnDec = document.getElementById("btn-dec");
-
-function runCipher() {
-  var text = inputEl.value;
-  var shift = parseInt(shiftSlider.value, 10);
-  shiftVal.textContent = shift;
-  var actualShift = mode === "enc" ? shift : -shift;
-  outputEl.textContent = text.replace(/[a-z]/gi, function(c) {
-    var base = c <= "Z" ? 65 : 97;
-    return String.fromCharCode((c.charCodeAt(0) - base + actualShift + 26) % 26 + base);
-  });
-}
-btnEnc.onclick = function() { mode = "enc"; btnEnc.setAttribute("aria-pressed", "true"); btnDec.setAttribute("aria-pressed", "false"); runCipher(); };
-btnDec.onclick = function() { mode = "dec"; btnDec.setAttribute("aria-pressed", "true"); btnEnc.setAttribute("aria-pressed", "false"); runCipher(); };
-inputEl.oninput = runCipher;
-shiftSlider.oninput = runCipher;
-runCipher();
-
-function copyCipher() {
-  navigator.clipboard.writeText(outputEl.textContent).then(function() {
-    var b = document.getElementById("copy-btn");
-    b.textContent = "COPIED!";
-    setTimeout(function() { b.textContent = "COPY"; }, 1500);
-  });
-}
-
-/* Contact Form via Formspree */
-var form = document.getElementById("contact-form");
-var formStatus = document.getElementById("form-status");
-form.addEventListener("submit", function(e) {
-  e.preventDefault();
-  formStatus.textContent = "Transmitting message...";
-  fetch("https://formspree.io/f/xbggeqvz", {
-    method: "POST",
-    body: new FormData(form),
-    headers: {Accept: "application/json"}
-  }).then(function(r) {
-    if (r.ok) {
-      formStatus.textContent = "Message received. I will be in touch.";
-      form.reset();
-    } else {
-      formStatus.textContent = "Unable to dispatch. Please check connection.";
+  function keywordReply(q) {
+    q = q.toLowerCase();
+    for (var i = 0; i < answers.length; i++) {
+      for (var j = 0; j < answers[i].words.length; j++) {
+        if (q.indexOf(answers[i].words[j]) !== -1) { return answers[i].reply; }
+      }
     }
-  }).catch(function() {
-    formStatus.textContent = "Transmission error. Check your network.";
+    return fallback;
+  }
+
+  function send() {
+    var q = input.value.trim();
+    if (q === "" || busy) { return; }
+    busy = true;
+    addMsg(q, "shh-me");
+    input.value = "";
+    chatHistory.push({ role: "user", text: q });
+    var thinking = addMsg("Thinking...", "shh-bot");
+
+    fetch(WORKER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: chatHistory.slice(-7) })
+    }).then(function (r) { return r.json(); })
+      .then(function (d) {
+        var text = d.reply || fallback;
+        thinking.textContent = text;
+        chatHistory.push({ role: "model", text: text });
+        busy = false;
+      })
+      .catch(function () {
+        var text = keywordReply(q);
+        thinking.textContent = text;
+        chatHistory.push({ role: "model", text: text });
+        busy = false;
+      });
+  }
+
+  function openChat() {
+    $("shh-hint").classList.remove("show");
+    chatBtn.classList.add("seen");
+    box.style.display = "flex";
+    chatBtn.setAttribute("aria-expanded", "true");
+    if (msgs.children.length === 0) {
+      addMsg("Hi! I'm Shhunya, Dipak's AI assistant. Ask me about his skills, studies or projects. Please don't share private information here.", "shh-bot");
+    }
+    input.focus();
+  }
+  function closeChat() {
+    box.style.display = "none";
+    chatBtn.setAttribute("aria-expanded", "false");
+    chatBtn.focus();
+  }
+  chatBtn.onclick = function () { if (box.style.display === "flex") { closeChat(); } else { openChat(); } };
+  $("shh-close").onclick = closeChat;
+  $("shh-hint-x").onclick = function () { $("shh-hint").classList.remove("show"); };
+  setTimeout(function () {
+    if (box.style.display !== "flex") { $("shh-hint").classList.add("show"); }
+  }, 2500);
+  setTimeout(function () { $("shh-hint").classList.remove("show"); }, 15000);
+  $("shh-send").onclick = send;
+  input.onkeydown = function (e) { if (e.key === "Enter") { send(); } };
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && box.style.display === "flex") { closeChat(); }
   });
-});
-
-/* Shhunya AI Edge Chat */
-var WORKER = "https://shhunya-ai.dipak838287.workers.dev";
-var chatHistory = [];
-var chatBusy = false;
-var fallback = [
-  {w: ["hi","hello","hey"], r: "Hello! I’m Shhunya, Dipak’s AI assistant. Inquire about his systems engineering, cybersecurity certifications, or projects."},
-  {w: ["study","degree","university"], r: "Dipak is pursuing a BSc (Hons) in Computing Systems, exploring system architectures and network protocols."},
-  {w: ["cert","google","cybersecurity"], r: "He holds the Google Cybersecurity Professional Certificate, focused on incident handling, Linux, and network defenses."},
-  {w: ["projects","work","portfolio"], r: "Explore the Architectures section above to inspect his 3D WebGL systems and Shhunya AI."},
-  {w: ["contact","hire","email"], r: "You can submit an inquiry through the Connect section below or reach out directly."}
-];
-
-function addChatMsg(text, sender) {
-  var container = document.getElementById("chat-messages");
-  var div = document.createElement("div");
-  div.className = "msg " + sender;
-  div.textContent = text;
-  container.appendChild(div);
-  container.scrollTop = 1e9;
-  return div;
-}
-
-function matchFallback(query) {
-  var q = query.toLowerCase();
-  for (var i = 0; i < fallback.length; i++) {
-    for (var j = 0; j < fallback[i].w.length; j++) {
-      if (q.indexOf(fallback[i].w[j]) > -1) return fallback[i].r;
-    }
-  }
-  return "I didn't quite catch that. Try asking about Dipak's degree, certifications, or cybersecurity projects.";
-}
-
-function sendChat() {
-  var input = document.getElementById("chat-input");
-  var query = input.value.trim();
-  if (!query || chatBusy) return;
-  chatBusy = true;
-  addChatMsg(query, "me");
-  input.value = "";
-  chatHistory.push({role: "user", text: query});
-  var thinking = addChatMsg("Reflecting...", "");
-
-  function finish(reply) {
-    thinking.textContent = reply;
-    chatHistory.push({role: "model", text: reply});
-    chatBusy = false;
-  }
-
-  fetch(WORKER, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({messages: chatHistory.slice(-7)})
-  })
-  .then(function(res) { return res.json(); })
-  .then(function(data) { finish(data.reply || matchFallback(query)); })
-  .catch(function() { finish(matchFallback(query)); });
-}
-
-var chatWindow = document.getElementById("chat-window");
-var chatTrigger = document.getElementById("chat-trigger");
-function toggleChat(open) {
-  if (open) {
-    chatWindow.style.display = "flex";
-    chatTrigger.setAttribute("aria-expanded", "true");
-    if (!document.getElementById("chat-messages").children.length) {
-      addChatMsg("Hi! I am Shhunya, Dipak’s AI assistant. Feel free to ask about his background, capabilities, or work.", "");
-    }
-    document.getElementById("chat-input").focus();
-  } else {
-    chatWindow.style.display = "none";
-    chatTrigger.setAttribute("aria-expanded", "false");
-  }
-}
-chatTrigger.onclick = function() { toggleChat(chatWindow.style.display !== "flex"); };
-document.getElementById("chat-close").onclick = function() { toggleChat(false); };
-document.getElementById("chat-send").onclick = sendChat;
-document.getElementById("chat-input").onkeydown = function(e) { if (e.key === "Enter") sendChat(); };
-document.addEventListener("keydown", function(e) { if (e.key === "Escape") toggleChat(false); });
 </script>
 </body>
 </html>
